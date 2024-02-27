@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+
     @GetMapping
     public ResponseEntity getAllProdructs() {
         return ResponseEntity.ok("deu ok");
