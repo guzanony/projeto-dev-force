@@ -7,17 +7,22 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Id;
 import lombok.*;
 
-@Table(name="users")
-@Entity(name="users")
+@Table(name="useradmin")
+@Entity(name="useradmin")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class User {
+public class UserAdmin {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String username;
     private String password;
+
+    public UserAdmin(RequestUserAdmin requestUserAdmin) {
+         this.username = requestUserAdmin.username();
+         this.password = requestUserAdmin.password();
+    }
 
 }
