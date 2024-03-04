@@ -42,7 +42,6 @@ header{
 
 .icons{
     width: 100px;
-    height: 9vh;
     left: 30px;
     font-size: 25px;
 }
@@ -192,7 +191,6 @@ button[type="submit"] {
 }
 
 i {
-  position: absolute;
   left: 0;
   padding: 10px 10px;
 }
