@@ -13,16 +13,17 @@ import org.springframework.web.bind.annotation.*;
 public class UserAdminController {
 @Autowired
 private UserAdminRepository repository;
-    @GetMapping
-    public ResponseEntity getAllUsers() {
-        var allUserAdmin = repository.findAll();
-        return ResponseEntity.ok(allUserAdmin);
-    }
+@CrossOrigin("*")
+@GetMapping
+public ResponseEntity getAllUsers() {
+ var allUserAdmin = repository.findAll();
+return ResponseEntity.ok(allUserAdmin);
+ }
 
-    @PostMapping
-    public ResponseEntity registerUserAdmin( @RequestBody @Valid RequestUserAdmin data ) {
-        UserAdmin newUserAdmin = new UserAdmin(data);
-        repository.save(newUserAdmin);
-        return ResponseEntity.ok().build();
+@PostMapping
+public ResponseEntity registerUserAdmin( @RequestBody @Valid RequestUserAdmin data ) {
+UserAdmin newUserAdmin = new UserAdmin(data);
+repository.save(newUserAdmin);
+return ResponseEntity.ok().build();
     }
 }
