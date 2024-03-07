@@ -1,8 +1,8 @@
 const formulario = document.querySelector("form");
-const iusername = document.querySelector(".username");
-const iemail = document.querySelector(".email");
-const ipassword = document.querySelector(".password");
-const icpf = document.querySelector(".cpf");
+const iusername = document.querySelector(".form-control");
+const iemail = document.querySelector(".form-control");
+const ipassword = document.querySelector(".form-control");
+const icpf = document.querySelector(".form-control");
 
   function cadastrar() {
     fetch("http://localhost:8080/registerUsers", {
