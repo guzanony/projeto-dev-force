@@ -1,0 +1,23 @@
+.FormContainer{
+    margin: 0 auto;
+    width: 50%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Form{
+    padding: 5px;
+}
+
+.form-control{
+    margin-bottom: 8px;
+}
+
+body{
+    background-image: url(../img/fundo_login.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
