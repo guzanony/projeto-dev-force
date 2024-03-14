@@ -21,12 +21,14 @@ public class RegisterUser {
     private String email;
     private String password;
     private String cpf;
+    private String grupo;
 
     public RegisterUser(RequestRegisterUser requestRegisterUser) {
         this.username = requestRegisterUser.username();
         this.email = requestRegisterUser.email();
         this.password = requestRegisterUser.password();
         this.cpf = requestRegisterUser.cpf();
+        this.grupo = requestRegisterUser.grupo();
     }
 
 }
