@@ -20,9 +20,24 @@ public class UserAdmin {
     private String username;
     private String password;
 
-    public UserAdmin(RequestUserAdmin requestUserAdmin) {
-         this.username = requestUserAdmin.username();
-         this.password = requestUserAdmin.password();
+    public UserAdmin(br.com.DevForce.Coffe.on.domain.user.RequestUserAdmin requestUserAdmin) {
+         this.username = requestUserAdmin.getUsername();
+         this.password = requestUserAdmin.getPassword();
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
