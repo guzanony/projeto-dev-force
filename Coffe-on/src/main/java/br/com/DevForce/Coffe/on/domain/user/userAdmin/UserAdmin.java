@@ -17,7 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class UserAdmin implements UserDetails {
-    @Id @GeneratedValue(strategy = GenerationType.UUID)
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String username;
     private String password;
@@ -36,10 +37,6 @@ public class UserAdmin implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
-    }
-
-    public String getRole() {
         return null;
     }
 
