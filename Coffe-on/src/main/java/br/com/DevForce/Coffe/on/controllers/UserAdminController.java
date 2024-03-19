@@ -1,6 +1,5 @@
 package br.com.DevForce.Coffe.on.controllers;
 
-import br.com.DevForce.Coffe.on.domain.user.*;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.RequestUserAdmin;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdmin;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdminRepository;
