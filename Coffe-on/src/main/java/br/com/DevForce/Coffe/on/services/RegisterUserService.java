@@ -26,6 +26,4 @@ public class RegisterUserService {
         RegisterUser newUser = new RegisterUser(requestRegisterUser);
         return registerUserRepository.save(newUser);
     }
-
-    // ... Outros métodos relacionados ao serviço podem ser adicionados aqui
 }
