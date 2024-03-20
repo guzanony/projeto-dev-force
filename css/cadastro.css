@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'poppins', sans-serif;
+}
+
+.container{
+    max-width: 1400px;
+    margin:auto;
+}
+
+.flex{
+    max-width: 100%; /* Alterei para 100% para ocupar a largura total */
+}
+
+.flex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+   
+}
+
+.menus{
+    font-size: 20px;
+}
+
+header{
+    padding-inline: 16px;
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 1s;
+    z-index: 999;
+    background-color: #A9907E;
+}
+
+.icons{
+    width: 100px;
+    left: 30px;
+    font-size: 25px;
+}
+
+.icons{
+    display: flex;
+    justify-content: space-between;
+    max-width: 10%;
+}
+
+header a{
+    letter-spacing: 1px;
+    color: #fff;
+}
+/*inicio - barra de rolagem*/
+header.roll{
+    background-color: #a4a09f;
+    padding: 0px;
+}
+
+header.roll a{
+    color: #fff;
+}
+/*fim - barra de rolagem*/
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 200px;
+    color: #cacaca; 
+}
+
+.logo-icon{
+    height: 140px;
+}
+
+header ul{
+    list-style-type: none;
+    display: flex; /* Adicionado para garantir que a lista seja exibida em linha */
+}
+
+header ul li{
+    display: inline-block;
+    margin: 0 20px; /* Reduzi a margem para ficar mais compacto */
+}
+header ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 40px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(../img/fundo_login.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.contai {
+  background-color: whitesmoke;
+  padding: 6px;
+  width: 750px;
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+ 
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 0 darkgrey;
+}
+
+form {
+  position: absolute;
+  margin-top: 80px;
+  transition: .5s;
+  width: 300px;
+  height: 400px;
+}
+
+.buttonsForm {
+  margin-top: 40px;
+  position: relative;
+  border-radius: 30px;
+  box-shadow: 0 0 7px 0 rgb(162, 128, 87);
+}
+
+.buttonsForm button {
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  position: relative;
+  padding: 10px 29px;
+}
+
+.btnColor {
+  position: absolute;
+  width: 108px;
+  height: 100%;
+  background: linear-gradient(to right, #A9907E, #A9907E);
+  border-radius: 30px;
+  transition: .3s;
+}
+
+input[type="text"], input[type="password"] {
+  border: none;
+  margin-top: 40px;
+  border-radius: 60px;
+  padding: 8px 0 8px 35px;
+  outline: none;
+  width: 100%;
+}
+
+button[type="submit"] {
+  background: #A9907E;
+  color: white;
+  border-radius: 30px;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 8px 0 8px 15px;
+  font-size: 15px;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.divCheck {
+  margin: 10px 0 0 5px;
+  width: 80%;
+  font-size: 13px;
+}
+
+#signin {
+  left: 25px;
+  
+}
+
+#signup {
+  left: 950px;
+  
+}
+
+i {
+  left: 0;
+  padding: 10px 10px;
+}
+
+.iEmail {
+  top: 40px;
+}
+
+.iPassword {
+  top: 114px;
+}
+
+.iPassword2 {
+  top: 190px;
+}

@@ -9,13 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RegisterUserService {
+public class RegisterUserService  {
 
     private final RegisterUserRepository registerUserRepository;
 
     @Autowired
     public RegisterUserService(RegisterUserRepository registerUserRepository) {
         this.registerUserRepository = registerUserRepository;
+
     }
 
     public List<RegisterUser> listarUsuarios() {
