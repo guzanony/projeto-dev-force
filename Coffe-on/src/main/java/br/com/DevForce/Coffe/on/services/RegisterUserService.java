@@ -16,6 +16,7 @@ public class RegisterUserService {
     @Autowired
     public RegisterUserService(RegisterUserRepository registerUserRepository) {
         this.registerUserRepository = registerUserRepository;
+
     }
 
     public List<RegisterUser> listarUsuarios() {
