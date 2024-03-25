@@ -1,27 +1,43 @@
-document.getElementById("formProduto").onsubmit = function (event) {
-  event.preventDefault();
+const formulario = document.querySelector("form");
+const inome = document.querySelector("#nomeProduto");
+const iavaliacao = document.querySelector("#codigo");
+const iquantidade = document.querySelector("#qtd");
+const ipreco = document.querySelector("#preco");
+const idescricao = document.querySelector("#descricao");
 
-  var productData = {
-    nome: document.getElementById("nomeProduto").value,
-    avaliacao: parseFloat(document.getElementById("avaliacaoProduto").value),
-    quantidade: parseInt(document.getElementById("quantidadeProduto").value),
-    preco: parseFloat(document.getElementById("precoProduto").value),
-    descricao: document.getElementById("descricaoProduto").value,
-  };
-
+function cadastrarProduto() {
   fetch("http://localhost:8080/products", {
-    method: "POST",
     headers: {
+      Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(productData),
+    method: "POST",
+    body: JSON.stringify({
+      nome: inome.value,
+      avaliacao: iavaliacao.value,
+      quantidade: iquantidade.value,
+      preco: ipreco.value,
+      descricao: idescricao.value,
+    }),
   })
-    .then((reponse) => {
-      if (!Response.ok) {
-        throw new Error("A resposta de rede não está ok" + reponse.statusText);
-      }
-      return reponse.json();
+    .then(function (resp) {
+      console.log(resp);
     })
-    .then((data) => console.log(data))
-    .catch((error) => console.error("Erro", error));
-};
+    .catch(function (resp) {
+      console.log(resp);
+    });
+}
+
+function limparProdutos() {
+  (inome.value = ""),
+    (iavaliacao.value = ""),
+    (iquantidade.value = ""),
+    (ipreco.value = ""),
+    (idescricao.value = "");
+}
+
+formulario.addEventListener("submit", function (event) {
+  event.preventDefault();
+  cadastrarProduto();
+  limparProdutos();
+});

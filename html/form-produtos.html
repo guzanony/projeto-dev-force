@@ -28,7 +28,7 @@
     </picture>
 
 
-    <form class="col-6">
+    <form class="col-6" id="formProduto">
 
         <div class="mb-3">
             <label for="nomeProduto" class="form-label">Nome do produto:</label>
@@ -37,7 +37,7 @@
 
         <div class="mb-3">
             <label for="codigo" class="form-label">Avaliação:</label>
-            <input type="number" class="form-control" name="codigo" id="codigo">
+            <input type="number" class="form-control" name="codigo" id="codigo" step="0.01">
         </div>
 
         <div class="mb-3 d-flex gap-2">
@@ -59,12 +59,12 @@
         </div>
 
         <div class="d-grid gap-2">
-            <button class="btn btn-success" type="button">Adicionar produto</button>
+            <button class="btn btn-success" type="submit">Adicionar produto</button>
         </div>
 
     </form>
 
 </div>
-   <script src="/projeto-dev-force/JS/form-produtos.js"></script>
+<script src="/projeto-dev-force/JS/form-produtos.js"></script>
 </body>
 </html>
