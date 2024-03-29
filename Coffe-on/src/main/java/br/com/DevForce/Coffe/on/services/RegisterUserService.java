@@ -1,8 +1,10 @@
 package br.com.DevForce.Coffe.on.services;
 
+import br.com.DevForce.Coffe.on.Validator.ValidadorCpf;
 import br.com.DevForce.Coffe.on.domain.user.registerUser.RegisterUser;
 import br.com.DevForce.Coffe.on.domain.user.registerUser.RegisterUserRepository;
 import br.com.DevForce.Coffe.on.domain.user.registerUser.RequestRegisterUser;
+import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,9 @@ public class RegisterUserService  {
     }
 
     public RegisterUser registerNewUser(RequestRegisterUser requestRegisterUser) {
+        if(!ValidadorCpf.isValid(requestRegisterUser.cpf())) {
+            throw new IllegalArgumentException("CPF inválido");
+        }
         RegisterUser newUser = new RegisterUser(requestRegisterUser);
         return registerUserRepository.save(newUser);
     }
