@@ -29,8 +29,12 @@ public class RegisterUserController {
     }
 
     @PostMapping
-    public ResponseEntity<RegisterUser> registerUser(@RequestBody @Valid RequestRegisterUser data) {
-        RegisterUser newRegisterUser = registerUserService.registerNewUser(data);
-        return ResponseEntity.ok(newRegisterUser);
+    public ResponseEntity<?> registerUser(@RequestBody @Valid RequestRegisterUser data) {
+        try {
+            RegisterUser newRegisterUser = registerUserService.registerNewUser(data);
+            return ResponseEntity.ok(newRegisterUser);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
