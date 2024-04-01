@@ -63,9 +63,6 @@
 
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#"><span data-feather="home" class="align-text-bottom"></span> Home </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="cadastrar-usuario.html"><span data-feather="file-text" class="align-text-bottom"></span> Novo Usuario</a>
                     </li>
                 </ul>
@@ -86,8 +83,8 @@
                     <thead>
                     <tr>
                         <th scope="col">Nome</th>
-                        <th scope="col">Status</th>
                         <th scope="col">E-mail</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Grupo</th>
 
                     </tr>
@@ -98,6 +95,20 @@
                         <td></td>
                         <td></td>
                         <td></td>
+
+                        <td class="col-1">
+                            <c:if test="${sessionScope.loggedUser != null}">
+                                <!--------- FORMULARIO BUTTONS APAGAR E EDITAR --------->
+                                <form action="/delete" method="post" class="d-flex gap-2">
+                                    <input type="hidden" id="id" name="id" value="${local.id}">
+                                    <button class="btn btn-danger" type="submit">Apagar</button>
+
+                                    <a class="btn btn-warning text-white"
+                                       href="#">Editar
+                                    </a>
+                                </form>
+                            </c:if>
+                        </td>
 
                     </tr>
                     </tbody>
