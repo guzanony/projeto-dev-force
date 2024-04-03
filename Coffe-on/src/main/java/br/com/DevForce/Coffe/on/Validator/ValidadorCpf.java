@@ -5,48 +5,36 @@ public class ValidadorCpf {
     public static boolean isValid(String cpf) {
         cpf = cpf.trim().replace(".", "").replace("-", "");
 
-        if (cpf.length() != 11 || !cpf.matches("\\d{11}")) {
+        if (cpf.length() != 11 || !cpf.matches("\\d{11}") || hasAllSameCharacters(cpf)) {
             return false;
         }
 
-        for (int j = 0; j < 10; j++) {
-            if (padLeft(Integer.toString(j), 11).equals(cpf)) {
-                return false;
-            }
-        }
+        int[] weightsFirstDigit = {10, 9, 8, 7, 6, 5, 4, 3, 2};
+        int[] weightsSecondDigit = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
-        int[] weights = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+        int firstDigit = calculateDigit(cpf.substring(0, 9), weightsFirstDigit);
+        int secondDigit = calculateDigit(cpf.substring(0, 10), weightsSecondDigit);
 
-        int sum = 0;
-        for (int i = 0; i < 9; i++) {
-            sum += Integer.parseInt(cpf.substring(i, i + 1)) * weights[i + 1];
-        }
-
-        int remainder = sum % 11;
-        if (remainder < 2) {
-            if (Integer.parseInt(cpf.substring(9, 10)) != 0) {
-                return false;
-            }
-        } else {
-            if (Integer.parseInt(cpf.substring(9, 10)) != 11 - remainder) {
-                return false;
-            }
-        }
-
-        sum = 0;
-        for (int i = 0; i < 10; i++) {
-            sum += Integer.parseInt(cpf.substring(i, i + 1)) * weights[i];
-        }
-
-        remainder = sum % 11;
-        if (remainder < 2) {
-            return Integer.parseInt(cpf.substring(10)) == 0;
-        } else {
-            return Integer.parseInt(cpf.substring(10)) == 11 - remainder;
-        }
+        return cpf.equals(cpf.substring(0, 9) + firstDigit + secondDigit);
     }
 
-    private static String padLeft(String text, int length) {
-        return String.format("%" + length + "s", text).replace(' ', '0');
+    private static boolean hasAllSameCharacters(String cpf) {
+        char firstChar = cpf.charAt(0);
+        for (int i = 1; i < cpf.length(); i++) {
+            if (cpf.charAt(i) != firstChar) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static int calculateDigit(String str, int[] weights) {
+        int sum = 0;
+        for (int i = 0; i < str.length(); i++) {
+            sum += Integer.parseInt(str.substring(i, i + 1)) * weights[i];
+        }
+
+        sum = 11 - (sum % 11);
+        return sum > 9 ? 0 : sum;
     }
 }

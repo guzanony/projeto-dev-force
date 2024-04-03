@@ -30,7 +30,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/validateToken").permitAll()
                         .requestMatchers(HttpMethod.GET, "/registerUsers").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/registerUsers").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/products").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

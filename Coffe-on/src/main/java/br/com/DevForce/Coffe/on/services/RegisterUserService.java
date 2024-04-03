@@ -6,6 +6,7 @@ import br.com.DevForce.Coffe.on.domain.user.registerUser.RegisterUserRepository;
 import br.com.DevForce.Coffe.on.domain.user.registerUser.RequestRegisterUser;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +15,12 @@ import java.util.List;
 public class RegisterUserService  {
 
     private final RegisterUserRepository registerUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegisterUserService(RegisterUserRepository registerUserRepository) {
+    public RegisterUserService(RegisterUserRepository registerUserRepository, PasswordEncoder passwordEncoder) {
         this.registerUserRepository = registerUserRepository;
+        this.passwordEncoder = passwordEncoder;
 
     }
 
@@ -30,6 +33,7 @@ public class RegisterUserService  {
             throw new IllegalArgumentException("CPF inválido");
         }
         RegisterUser newUser = new RegisterUser(requestRegisterUser);
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         return registerUserRepository.save(newUser);
     }
 }

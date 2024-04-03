@@ -1,39 +1,32 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault();
+
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
 
-    var data = {
+    var loginData = {
         username: username,
         password: password
     };
 
-    fetch('http://localhost:8080/usersAdmin', {
+    fetch('http://localhost:8080/auth/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(loginData)
     })
     .then(response => response.json())
     .then(data => {
-        // Handle response from backend
         if (data.token) {
-            // Login successful, save token and redirect
+            // Armazena o token no localStorage ou em cookies
             localStorage.setItem('token', data.token);
-            window.location.href = "/html/TelaPrincipal"; // Redirect to dashboard or homepage
+            window.location.href = 'TelaPrincipal.html';
         } else {
-            // Login failed, display error message
-            alert('Login failed. Please check your credentials.');
+            alert('Login falhou');
         }
     })
-    .then(response => {
-        console.log('Response:', response);
-        return response.json();
-    })
-
     .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again later.');
+        console.error('Erro ao fazer login:', error);
     });
 });
