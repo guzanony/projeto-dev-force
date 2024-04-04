@@ -1,41 +1,41 @@
-body {
-    font-family: Arial, sans-serif;
-}
+/*body {*/
+/*    font-family: Arial, sans-serif;*/
+/*}*/
 
-.busca-container {
-    margin-bottom: 20px;
-}
+/*.busca-container {*/
+/*    margin-bottom: 20px;*/
+/*}*/
 
-.lista-produtos table {
-    width: 100%;
-    border-collapse: collapse;
-}
+/*.lista-produtos table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*}*/
 
-.lista-produtos th, .lista-produtos td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
+/*.lista-produtos th, .lista-produtos td {*/
+/*    border: 1px solid #ddd;*/
+/*    padding: 8px;*/
+/*    text-align: left;*/
+/*}*/
 
-.lista-produtos th {
-    background-color: #f2f2f2;
-}
+/*.lista-produtos th {*/
+/*    background-color: #f2f2f2;*/
+/*}*/
 
-.lista-produtos tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+/*.lista-produtos tr:nth-child(even) {*/
+/*    background-color: #f9f9f9;*/
+/*}*/
 
-.lista-produtos tr:hover {
-    background-color: #ddd;
-}
+/*.lista-produtos tr:hover {*/
+/*    background-color: #ddd;*/
+/*}*/
 
-.paginacao {
-    margin-top: 20px;
-    text-align: center;
-}
+/*.paginacao {*/
+/*    margin-top: 20px;*/
+/*    text-align: center;*/
+/*}*/
 
-.paginacao button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
+/*.paginacao button {*/
+/*    margin: 0 5px;*/
+/*    padding: 5px 10px;*/
+/*    cursor: pointer;*/
+/*}*/
