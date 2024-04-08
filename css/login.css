@@ -98,7 +98,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.967);
+    background-color: rgba(120, 78, 41, 0.329);
     background-image: url(../img/fundo_login.png);
     background-repeat: no-repeat;
     background-size: cover;
