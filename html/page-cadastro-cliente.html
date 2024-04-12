@@ -3,76 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro de Cliente</title>
-    <link rel="stylesheet" href="/projeto-dev-force/css/page-cadastro-cliente.css">
-    <script src="/projeto-dev-force/JS/page-cadastro-cliente.js"></script>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
-<body>
-<div class="container">
-    <h2>Cadastro de Cliente</h2>
-    <form>
-        <div class="form-group">
-            <label for="nome">Nome Completo:</label>
-            <input type="text" id="nome" name="nome" required>
-        </div>
-        <div class="form-group">
-            <label for="data-nascimento">Data de Nascimento:</label>
-            <input type="date" id="data-nascimento" name="data_nascimento" required>
-        </div>
-        <div class="form-group">
-            <label for="genero">Gênero:</label>
-            <select id="genero" name="genero" required>
-                <option value="">Selecione</option>
-                <option value="feminino">Feminino</option>
-                <option value="masculino">Masculino</option>
-                <option value="outro">Outro</option>
-            </select>
-        </div>
-        <fieldset>
-            <legend>Endereço de Faturamento</legend>
-            <div class="form-group">
-                <label for="cep-faturamento">CEP:</label>
-                <input type="text" id="cep-faturamento" name="cep_faturamento" required>
-            </div>
-            <div class="form-group">
-                <label for="logradouro-faturamento">Logradouro:</label>
-                <input type="text" id="logradouro-faturamento" name="logradouro_faturamento" required>
-            </div>
-            <div class="form-group">
-                <label for="numero-faturamento">Número:</label>
-                <input type="text" id="numero-faturamento" name="numero_faturamento" required>
-            </div>
-            <div class="form-group">
-                <label for="complemento-faturamento">Complemento:</label>
-                <input type="text" id="complemento-faturamento" name="complemento_faturamento">
-            </div>
-            <div class="form-group">
-                <label for="bairro-faturamento">Bairro:</label>
-                <input type="text" id="bairro-faturamento" name="bairro_faturamento" required>
-            </div>
-            <div class="form-group">
-                <label for="cidade-faturamento">Cidade:</label>
-                <input type="text" id="cidade-faturamento" name="cidade_faturamento" required>
-            </div>
-            <div class="form-group">
-                <label for="uf-faturamento">UF:</label>
-                <select id="uf-faturamento" name="uf_faturamento" required>
-                    <option value="">Selecione</option>
-                    <!-- Adicionar as opções de estados aqui -->
-                </select>
-            </div>
-        </fieldset>
-        <form id="cadastroClienteForm">
-            <fieldset class="endereco-entrega">
-                <legend>Endereço de Entrega</legend>
-                <div id="enderecosEntrega">
+    <body>
+        <div class="container">
+
+            <header class="header bg-dark text-white text-center mb-3">
+                <h1 class="p-3">Preencha com suas informações pessoais</h1>
+            </header>
+
+            <!-- FORMULARIOS -->
+            <form class="d-flex gap-4 mb-2">
+
+                    <!--DADOS PESSOAIS-->
+
+
+                <fieldset class="row row-4 col-6 border-2 border-end">
+
+                    <legend class="h2">Dados Pessoais <i class="bi bi-person-circle h3 text-primary"></i></legend>
+
+                        <div class="form-group mb-3 col-6">
+                            <label class="form-label" for="email">E-mail:</label>
+                            <input class="form-control" type="email" id="email" name="email" placeholder="nome@exemplo.com" required>
+                        </div>
+
+                        <div class="form-group mb-3 col-6">
+                            <label class="form-label" for="password">Senha:</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="form-label" for="nome">Nome Completo:</label>
+                            <input class="form-control" type="text" id="nome" name="nome" required>
+                        </div>
+
+                        <div class="form-group mb-3 col-4">
+                            <label class="form-label" for="data-nascimento">Data de Nascimento:</label>
+                            <input class="form-control" type="date" id="data-nascimento" name="data_nascimento" required>
+                        </div>
+
+                        <!--SELECT GÉNERO-->
+                        <div class="mb-5 ">
+                            <label class="form-label" for="genero">Gênero:</label>
+
+                            <select class="form-select" id="genero" name="genero" required>
+                                <option selected>Selecione</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+
+                </fieldset>
+
+
+                <!---ENDEREÇO DE FATURAMENTO-->
+                <fieldset class="col-6 ">
+
+                    <legend class="h2 mb-2">Endereço de Faturamento <i class="bi bi-geo-alt-fill h3 text-primary"></i></legend>
+
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="logradouro-faturamento">Logradouro:</label>
+                        <input class="form-control" type="text" id="logradouro-faturamento" name="logradouro_faturamento" required>
+                    </div>
+
+                    <!-------- NUMERO E COMPLEMENTO ------>
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group mb-3 col-2">
+                            <label class="form-label" for="numero-faturamento">Número:</label>
+                            <input class="form-control" type="text" id="numero-faturamento" name="numero_faturamento" required>
+                        </div>
+
+                        <div class="form-group mb-3 col-5">
+                            <label class="form-label" for="complemento-faturamento">Complemento:</label>
+                            <input class="form-control" type="text" id="complemento-faturamento" name="complemento_faturamento">
+                        </div>
+
+                        <div class="form-group mb-3 col-4">
+                            <label class="form-label" for="cep-faturamento">CEP:</label>
+                            <input class="form-control" type="text" id="cep-faturamento" name="cep_faturamento" required>
+                        </div>
+                    </div>
+
+                    <!------ BAIRRO ------->
+                    <div class="form-group mb-3">
+                        <label class="form-label" for="bairro-faturamento">Bairro:</label>
+                        <input class="form-control" type="text" id="bairro-faturamento" name="bairro_faturamento" required>
+                    </div>
+
+                    <!---------- CIDADE E UF --------->
+                    <div class="d-flex justify-content-between">
+
+                        <div class="form-group mb-3 col-7">
+                            <label class="form-label" for="cidade-faturamento">Cidade:</label>
+                            <input class="form-control" type="text" id="cidade-faturamento" name="cidade_faturamento" required>
+                        </div>
+
+                        <!--------- SELECT UF --------->
+                        <div class="form-group col-4">
+
+                            <label class="form-label" for="uf-faturamento">UF:</label>
+                            <select class="form-select" id="uf-faturamento" name="uf_faturamento" required>
+                                <option value="">Selecione</option>
+                                <!-- Adicionar as opções de estados aqui -->
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                </fieldset>
+
+            </form>
+
+            <!------- FORMULARIO 2 ------->
+            <form id="cadastroClienteForm" class="d-flex mt-5 gap-3 ">
+
+                <fieldset class="endereco-entrega d-flex align-items-center">
+
+                    <legend class="h3">Endereço de Entrega <i class="bi bi-house-fill text-primary"></i></legend>
+
+                    <div id="enderecosEntrega">
+                    </div>
+
+                    <button class="btn btn-warning" type="button" id="adicionarEnderecoEntrega">Adicionar Endereço de Entrega</button>
+
+                </fieldset>
+
+                <div class="form-group">
+                    <button class="btn btn-success" type="submit">Cadastrar</button>
                 </div>
-                <button type="button" id="adicionarEnderecoEntrega">Adicionar Endereço de Entrega</button>
-            </fieldset>
-            <div class="form-group">
-                <button type="submit">Cadastrar</button>
-            </div>
-        </form>
-    </form>
-</div>
-</body>
+
+            </form>
+
+        </div>
+
+        <!--SCRIPTS-->
+        <script src="/projeto-dev-force/JS/page-cadastro-cliente.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
 </html>
