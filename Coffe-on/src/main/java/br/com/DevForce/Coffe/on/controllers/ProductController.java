@@ -1,14 +1,12 @@
 package br.com.DevForce.Coffe.on.controllers;
 
-import br.com.DevForce.Coffe.on.domain.user.Product.Product;
-import br.com.DevForce.Coffe.on.domain.user.Product.ProductsRepository;
-import br.com.DevForce.Coffe.on.domain.user.Product.RequestProducts;
+import br.com.DevForce.Coffe.on.domain.Product.Product;
+import br.com.DevForce.Coffe.on.domain.Product.RequestProducts;
 import br.com.DevForce.Coffe.on.services.ProductsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

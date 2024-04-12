@@ -1,4 +1,4 @@
-package br.com.DevForce.Coffe.on.domain.user.registerUser;
+package br.com.DevForce.Coffe.on.domain.registerUser;
 
 import jakarta.persistence.*;
 import lombok.*;
