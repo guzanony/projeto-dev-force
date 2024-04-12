@@ -1,4 +1,4 @@
-package br.com.DevForce.Coffe.on.domain.user.Product;
+package br.com.DevForce.Coffe.on.domain.Product;
 
 import java.math.BigDecimal;
 

@@ -1,7 +1,7 @@
 package br.com.DevForce.Coffe.on.controllers;
 
-import br.com.DevForce.Coffe.on.domain.user.registerUser.RegisterUser;
-import br.com.DevForce.Coffe.on.domain.user.registerUser.RequestRegisterUser;
+import br.com.DevForce.Coffe.on.domain.registerUser.RegisterUser;
+import br.com.DevForce.Coffe.on.domain.registerUser.RequestRegisterUser;
 import br.com.DevForce.Coffe.on.services.RegisterUserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

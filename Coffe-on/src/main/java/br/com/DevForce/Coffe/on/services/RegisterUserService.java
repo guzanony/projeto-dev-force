@@ -1,10 +1,9 @@
 package br.com.DevForce.Coffe.on.services;
 
 import br.com.DevForce.Coffe.on.Validator.ValidadorCpf;
-import br.com.DevForce.Coffe.on.domain.user.registerUser.RegisterUser;
-import br.com.DevForce.Coffe.on.domain.user.registerUser.RegisterUserRepository;
-import br.com.DevForce.Coffe.on.domain.user.registerUser.RequestRegisterUser;
-import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
+import br.com.DevForce.Coffe.on.domain.registerUser.RegisterUser;
+import br.com.DevForce.Coffe.on.domain.registerUser.RegisterUserRepository;
+import br.com.DevForce.Coffe.on.domain.registerUser.RequestRegisterUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

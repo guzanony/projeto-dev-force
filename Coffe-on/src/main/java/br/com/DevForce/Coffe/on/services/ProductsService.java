@@ -1,8 +1,8 @@
 package br.com.DevForce.Coffe.on.services;
 
-import br.com.DevForce.Coffe.on.domain.user.Product.Product;
-import br.com.DevForce.Coffe.on.domain.user.Product.ProductsRepository;
-import br.com.DevForce.Coffe.on.domain.user.Product.RequestProducts;
+import br.com.DevForce.Coffe.on.domain.Product.Product;
+import br.com.DevForce.Coffe.on.domain.Product.ProductsRepository;
+import br.com.DevForce.Coffe.on.domain.Product.RequestProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
