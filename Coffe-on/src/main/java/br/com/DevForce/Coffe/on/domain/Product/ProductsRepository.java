@@ -1,4 +1,4 @@
-package br.com.DevForce.Coffe.on.domain.user.Product;
+package br.com.DevForce.Coffe.on.domain.Product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
