@@ -1,5 +1,6 @@
 package br.com.DevForce.Coffe.on.infra.security;
 
+import br.com.DevForce.Coffe.on.domain.cliente.Cliente;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdmin;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -31,11 +32,27 @@ public class TokenService {
         }
     }
 
+    public String generateToken(Cliente cliente) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+
+            String token = JWT.create()
+                    .withIssuer("loginCliente-auth-api")
+                    .withSubject(cliente.getEmail())
+                    .withExpiresAt(generateExpirationDate())
+                    .sign(algorithm);
+            return token;
+        } catch (JWTCreationException exception) {
+            throw new RuntimeException("Error while authenticating");
+        }
+    }
+
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("login-auth-api")
+                    .withIssuer("loginCliente-auth-api")
                     .build()
                     .verify(token)
                     .getSubject();

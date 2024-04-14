@@ -1,5 +1,7 @@
 package br.com.DevForce.Coffe.on.infra.security;
 
+import br.com.DevForce.Coffe.on.domain.cliente.Cliente;
+import br.com.DevForce.Coffe.on.domain.cliente.ClienteRepository;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdmin;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdminRepository;
 import jakarta.servlet.FilterChain;
@@ -21,6 +23,8 @@ public class SecurityFilter extends OncePerRequestFilter {
     TokenService tokenService;
     @Autowired
     UserAdminRepository userAdminRepository;
+    @Autowired
+    ClienteRepository clienteRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -28,9 +32,9 @@ public class SecurityFilter extends OncePerRequestFilter {
         var login = tokenService.validateToken(token);
 
         if(login != null){
-            UserAdmin userAdmin = userAdminRepository.findByUsername(login).orElseThrow(() -> new RuntimeException("User Not Found"));
+            Cliente cliente = clienteRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User Not Found"));
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-            var authentication = new UsernamePasswordAuthenticationToken(userAdmin, null, authorities);
+            var authentication = new UsernamePasswordAuthenticationToken(cliente, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

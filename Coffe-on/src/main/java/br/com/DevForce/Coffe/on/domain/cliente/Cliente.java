@@ -21,6 +21,7 @@ public class Cliente {
     private String ufFaturamento;
     private String password;
     private String email;
+    private String cpf;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<EnderecoEntrega> enderecosEntrega;
@@ -121,6 +122,14 @@ public class Cliente {
         this.enderecosEntrega = enderecosEntrega;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -137,3 +146,5 @@ public class Cliente {
         this.email = email;
     }
 }
+
+
