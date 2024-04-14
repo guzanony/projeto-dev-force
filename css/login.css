@@ -25,7 +25,7 @@ html{
     align-items: center;
     justify-content: space-between;
     height: 100px;
-   
+
 }
 
 .menus{
@@ -68,7 +68,7 @@ header.roll a{
     justify-content: center;
     align-items: center;
     font-size: 200px;
-    color: #cacaca; 
+    color: #cacaca;
 }
 
 .logo-icon{
@@ -98,7 +98,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 255, 255, 0.967);
+    background-color: rgba(120, 78, 41, 0.329);
     background-image: url(../img/fundo_login.png);
     background-repeat: no-repeat;
     background-size: cover;
@@ -140,7 +140,7 @@ body {
     outline: 3px solid transparent;
     transition: 0.3s;
     font-size: 17px;
-    color: white;
+    color: black;
     font-weight: 600;
 }
 
@@ -184,7 +184,7 @@ body {
     justify-content: space-between;
     margin-bottom: 15px;
     font-size: 15px;
-   
+
 }
 
 .remember-forgot-box label{

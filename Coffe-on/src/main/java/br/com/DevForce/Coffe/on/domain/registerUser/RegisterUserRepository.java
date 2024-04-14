@@ -1,4 +1,4 @@
-package br.com.DevForce.Coffe.on.domain.user;
+package br.com.DevForce.Coffe.on.domain.registerUser;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

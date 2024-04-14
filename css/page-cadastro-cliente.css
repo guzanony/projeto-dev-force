@@ -1,0 +1,12 @@
+body{
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+.title{
+    margin-left: 245px;
+}
+
+#header{
+    width: 80%;
+}
+
