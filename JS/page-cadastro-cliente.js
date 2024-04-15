@@ -75,5 +75,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
                 .catch((erro)=>{console.error("Erro", erro);
                 });
+
     });
 });
