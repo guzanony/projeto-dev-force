@@ -66,8 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
     
                     <div class="modal-footer">
+                    
                         <button type="button" class="removerEnderecoEntrega btn btn-danger">Remover</button>
                         <button type="button" class="btn btn-primary">Guardar</button>
+                        
                     </div>
     
                 </div>
