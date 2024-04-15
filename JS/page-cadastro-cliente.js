@@ -7,39 +7,73 @@ document.addEventListener('DOMContentLoaded', function() {
     botaoAdicionarEndereco.addEventListener('click', function() {
         const novoEndereco = document.createElement('div');
         novoEndereco.innerHTML = `
-            <div class="form-group">
-                <label>Selecionar como endereço de entrega:</label>
-                <input type="radio" name="endereco_selecionado" value="${contadorEnderecos}" ${contadorEnderecos === 0 ? 'checked' : ''}>
+     
+         <!-- Tela Adicionar Novo Endereço -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            
+            <div class="modal-dialog">
+    
+                <div class="modal-content">
+    
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Adicione um endereço</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+    
+                    <div class="modal-body">
+    
+                        <div class="form-group form-check">
+                            <input class="form-check-input" type="radio" name="endereco_selecionado"
+                                value="${contadorEnderecos}" ${contadorEnderecos===0 ? 'checked' : '' }>
+                            <label class="form-label">Selecionar como endereço de entrega:</label>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">CEP:</label>
+                            <input class="form-control type=" text" name="cep_entrega[]" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">Logradouro:</label>
+                            <input class="form-control type=" text" name="logradouro_entrega[]" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">Número:</label>
+                            <input class="form-control type=" text" name="numero_entrega[]" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">Complemento:</label>
+                            <input class="form-control type=" text" name="complemento_entrega[]">
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">Bairro:</label>
+                            <input class="form-control type=" text" name="bairro_entrega[]" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">Cidade:</label>
+                            <input class="form-control type=" text" name="cidade_entrega[]" required>
+                        </div>
+    
+                        <div class="form-group">
+                            <label class="form-label">UF:</label>
+                            <input class="form-control type=" text" name="uf_entrega[]" required>
+                        </div>
+    
+                    </div>
+    
+                    <div class="modal-footer">
+                        <button type="button" class="removerEnderecoEntrega btn btn-danger">Remover</button>
+                        <button type="button" class="btn btn-primary">Guardar</button>
+                    </div>
+    
+                </div>
             </div>
-            <div class="form-group">
-                <label>CEP:</label>
-                <input type="text" name="cep_entrega[]" required>
-            </div>
-            <div class="form-group">
-                <label>Logradouro:</label>
-                <input type="text" name="logradouro_entrega[]" required>
-            </div>
-            <div class="form-group">
-                <label>Número:</label>
-                <input type="text" name="numero_entrega[]" required>
-            </div>
-            <div class="form-group">
-                <label>Complemento:</label>
-                <input type="text" name="complemento_entrega[]">
-            </div>
-            <div class="form-group">
-                <label>Bairro:</label>
-                <input type="text" name="bairro_entrega[]" required>
-            </div>
-            <div class="form-group">
-                <label>Cidade:</label>
-                <input type="text" name="cidade_entrega[]" required>
-            </div>
-            <div class="form-group">
-                <label>UF:</label>
-                <input type="text" name="uf_entrega[]" required>
-            </div>
-            <button type="button" class="removerEnderecoEntrega">Remover</button>
+        </div>
+    
         `;
         divEnderecosEntrega.appendChild(novoEndereco);
         contadorEnderecos++;
