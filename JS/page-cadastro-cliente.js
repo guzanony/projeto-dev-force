@@ -59,6 +59,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Submissão do formulário
     formulario.addEventListener('submit', function(event) {
         event.preventDefault();
-        console.log('Formulário submetido!');
+        const form =new FormData(formulario);
+        const formObjeto = Object.fromEntries(form.entries());
+        fetch("http://localhost:8080/auth/registerCliente", {
+            method: "POST",
+                body: JSON.stringify(formObjeto)
+            })
+                .then(response=>{
+                    if(!response.ok){
+                        throw new Error("Resposta com erro!");
+                    }
+                    return response.json();
+                })
+                .then(valor =>{console.log("Sucesso",valor);
+                })
+                .catch((erro)=>{console.error("Erro", erro);
+                });
     });
 });
