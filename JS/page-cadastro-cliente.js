@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="modal-footer">
                     
                         <button type="button" class="removerEnderecoEntrega btn btn-danger">Remover</button>
-                        <button type="button" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-primary">Adicionar</button>
                         
                     </div>
     
@@ -97,6 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const form =new FormData(formulario);
         const formObjeto = Object.fromEntries(form.entries());
+
+
         fetch("http://localhost:8080/auth/registerCliente", {
             method: "POST",
                 body: JSON.stringify(formObjeto)
