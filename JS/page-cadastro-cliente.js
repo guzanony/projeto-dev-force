@@ -71,35 +71,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Submissão do formulário
     formulario.addEventListener('submit', function(event) {
         event.preventDefault();
-        const form =new FormData(formulario);
+        const form = new FormData(formulario);
         const formObjeto = Object.fromEntries(form.entries());
 
-        formObjeto.enderecoEntrega = [];
-        const adicionarEndereco = ["cep","logradouro","numero","complemento","bairro","cidade","uf"];
-        const quantidadeEndereco = formulario.querySelectorAll("input[name=cep]").length;
+        formObjeto.enderecosEntrega = [];
+        const enderecosCampos = ['cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf'];
+        const numEnderecos = formulario.querySelectorAll('input[name="cep"]').length;
 
-            for (let i = 0; i <= quantidadeEndereco; i++){
-                let nomeCamposEndereco = {};
-                adicionarEndereco.forEach(campo => {
-                    nomeCamposEndereco[campo] = form.get(`${campo}`, i)
-                })
-                formObjeto.enderecoEntrega.push(nomeCamposEndereco);
-            }
+        for (let i = 0; i < numEnderecos; i++) {
+            let endereco = {};
+            enderecosCampos.forEach(campo => {
+                endereco[campo] = form.get(`${campo}`, i);
+            });
+            formObjeto.enderecosEntrega.push(endereco);
+        }
 
         fetch("http://localhost:8080/auth/registerCliente", {
             method: "POST",
-                body: JSON.stringify(formObjeto)
-            })
-                .then(response=>{
-                    if(!response.ok){
-                        throw new Error("Resposta com erro!");
-                    }
-                    return response.json();
-                })
-                .then(valor =>{console.log("Sucesso",valor);
-                })
-                .catch((erro)=>{console.error("Erro", erro);
-                });
-
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObjeto)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Resposta com erro!");
+            }
+            return response.json();
+        })
+        .then(valor => {
+            window.location.href = "/projeto-dev-force/html/page-login-cliente.html";
+            console.log("Sucesso", valor);
+        })
+        .catch(erro => {
+            console.error("Erro", erro);
+        });
     });
+
 });
