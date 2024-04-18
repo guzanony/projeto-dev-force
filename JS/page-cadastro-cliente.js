@@ -7,51 +7,51 @@ document.addEventListener('DOMContentLoaded', function() {
     botaoAdicionarEndereco.addEventListener('click', function() {
         const novoEndereco = document.createElement('div');
         novoEndereco.innerHTML = `
-     
+
          <!-- Tela Adicionar Novo Endereço -->
                         <div class="form-group form-check">
                             <input class="form-check-input" type="radio" name="endereco_selecionado"
                                 value="${contadorEnderecos}" ${contadorEnderecos===0 ? 'checked' : '' }>
                             <label class="form-label">Selecionar como endereço de entrega:</label>
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">CEP:</label>
                             <input class="form-control type=" text" name="cep" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">Logradouro:</label>
                             <input class="form-control type=" text" name="logradouro" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">Número:</label>
                             <input class="form-control type=" text" name="numero" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">Complemento:</label>
                             <input class="form-control type=" text" name="complemento">
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">Bairro:</label>
                             <input class="form-control type=" text" name="bairro" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">Cidade:</label>
                             <input class="form-control type=" text" name="cidade" required>
                         </div>
-    
+
                         <div class="form-group">
                             <label class="form-label">UF:</label>
                             <input class="form-control type=" text" name="uf" required>
                         </div>
-                    
+
                         <button type="button" class="removerEnderecoEntrega btn btn-danger">Remover</button>
-    
+
         `;
         divEnderecosEntrega.appendChild(novoEndereco);
         contadorEnderecos++;
