@@ -1,6 +1,7 @@
 package br.com.DevForce.Coffe.on.controllers;
 
 import br.com.DevForce.Coffe.on.domain.registerUser.RegisterUser;
+import br.com.DevForce.Coffe.on.domain.registerUser.RegisterUserRepository;
 import br.com.DevForce.Coffe.on.domain.registerUser.RequestRegisterUser;
 import br.com.DevForce.Coffe.on.services.RegisterUserService;
 import jakarta.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
@@ -16,6 +18,7 @@ import java.util.List;
 public class RegisterUserController {
 
     private RegisterUserService registerUserService;
+    private RegisterUserRepository registerUserRepository;
 
 
     @Autowired
@@ -37,4 +40,33 @@ public class RegisterUserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/registerUsers/{id}")
+    public ResponseEntity<RegisterUser> getUserById(@PathVariable String id) {
+        Optional<RegisterUser> user = registerUserRepository.findById(id);
+        return user.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PatchMapping("/{id}/activate")
+    public ResponseEntity<?> activateUser(@PathVariable String id) {
+        boolean activated = registerUserService.activateUser(id);
+        if (activated) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Endpoint para desativar usuário
+    @PatchMapping("/{id}/deactivate")
+    public ResponseEntity<?> deactivateUser(@PathVariable String id) {
+        boolean deactivated = registerUserService.deactivateUser(id);
+        if (deactivated) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
