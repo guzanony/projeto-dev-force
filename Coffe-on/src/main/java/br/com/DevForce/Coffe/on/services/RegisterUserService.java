@@ -35,4 +35,22 @@ public class RegisterUserService  {
         newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
         return registerUserRepository.save(newUser);
     }
+
+    public boolean activateUser(String id) {
+        return registerUserRepository.findById(id)
+                .map(user -> {
+                    user.setActive(true);
+                    registerUserRepository.save(user);
+                    return true;
+                }).orElse(false);
+    }
+
+    public boolean deactivateUser(String id) {
+        return registerUserRepository.findById(id)
+                .map(user -> {
+                    user.setActive(false);
+                    registerUserRepository.save(user);
+                    return true;
+                }).orElse(false);
+    }
 }
