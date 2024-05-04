@@ -208,7 +208,6 @@
 
 </header>
 
-
 <main class="container container-main">
 
     <!-- FORMULARIOS -->
@@ -224,32 +223,38 @@
                         Dados Pessoais <i class="bi bi-person-circle h3 text-primary"></i>
                     </legend>
 
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-2">
                         <label class="form-label" for="nome">Nome Completo:</label>
                         <input class="form-control" type="text" id="nome" name="nome" required>
                     </div>
 
-                    <div class="form-group mb-3 col-auto">
+                    <div class="form-group mb-2 col-auto">
                         <label class="form-label" for="email">E-mail:</label>
                         <input class="form-control" type="email" id="email" name="email"
                                placeholder="nome@exemplo.com" required>
                     </div>
 
-                    <div class="form-group mb-3 col-auto">
+                    <div class="form-group mb-2 col-auto">
                         <label class="form-label" for="password">Senha:</label>
                         <input class="form-control" type="password" id="password" name="password" required>
+                    </div>
+
+                    <!--Confirmar Senha-->
+                    <div class="form-group mb-2 col-auto">
+                        <label class="form-label" for="confirmPassword">Confirmar Senha:</label>
+                        <input class="form-control" type="confirmPassword" id="confirmPassword" name="confirmPassword" required>
                     </div>
 
 
                     <!------ CPF E DATA DE NASCIMENTO ------>
                     <div class="d-flex justify-content-between">
-                        <div class="form-group mb-3 col-5">
+                        <div class="form-group mb-2 col-5">
                             <label class="form-label" for="data-nascimento">Data Nascimento:</label>
                             <input class="form-control" type="date" id="data-nascimento" name="data_nascimento"
                                    required>
                         </div>
 
-                        <div class="form-group mb-3 col-6">
+                        <div class="form-group mb-2 col-6">
                             <label class="form-label" for="cpf">Cpf:</label>
                             <input class="form-control" type="text" id="cpf" name="cpf" required>
                         </div>
@@ -301,14 +306,14 @@
 
                         <div class="form-group mb-3 col-5">
                             <label class="form-label" for="complemento-faturamento">Complemento:</label>
-                            <input class="form-control" type="text" id="complemento-faturamento"
-                                   name="complemento_faturamento">
+                            <input class="form-control" type="text" id="complemento-faturamento" name="complemento_faturamento">
+                            <small class="form-text">Casa / Apartamento</small>
                         </div>
 
                         <div class="form-group mb-3 col-4">
                             <label class="form-label" for="cep-faturamento">CEP:</label>
-                            <input class="form-control" type="text" id="cep-faturamento" name="cep_faturamento"
-                                   required>
+                            <input class="form-control" type="text" id="cep-faturamento" name="cep_faturamento" required>
+                            <small class="form-text">Digite só números</small>
                         </div>
                     </div>
 
@@ -334,7 +339,34 @@
                             <label class="form-label" for="uf-faturamento">UF:</label>
                             <select class="form-select" id="uf-faturamento" name="uf_faturamento" required>
                                 <option value="">Selecione</option>
-                                <!-- Adicionar as opções de estados aqui -->
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
+                                <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
+                                <option value="EX">Estrangeiro</option>
                             </select>
 
                         </div>
