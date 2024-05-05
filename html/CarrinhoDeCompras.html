@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+
+
+    <title>Carrinho</title>
+</head>
+
+<body>
+
+<header class="container mb-4">
+
+    <div class="row">
+
+    </div>
+    <!-- Header -->
+    <nav class="navbar navbar-light bg-light p-3">
+        <div class="container-fluid">
+            <h2 class="fw-semibold">Carrinho de compras <i class="bi bi-cart4 text-success fw-bold"></i></h2>
+        </div>
+    </nav>
+
+</header>
+
+<section class="container p-4">
+
+    <!-- Row 1 -->
+    <div class="row">
+
+        <article class="shadow col p-4 border rounded-4 justify-content-center align-items-center g-2">
+            <h2 class="text-center">Minha Cesta <i class="bi bi-basket text-success fw-bold"></i></h2>
+            <!-- Tabela para exibir itens do carrinho -->
+            <table id="cartTable" class="table text-center">
+                <thead>
+                <tr>
+                    <th scope="col" class="col-6">Produto</th>
+                    <th scope="col" class="col">Preço</th>
+                    <th scope="col" class="col">Qtd.</th>
+                    <th scope="col" class="col">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </article>
+
+        <!-- Row 2 -->
+        <div class="row justify-content-between mt-4">
+
+            <article class="col-6 p-4 border rounded-4 justify-content-center align-items-center g-2 shadow">
+
+                <!-- Calcular frete -->
+                <h2 class="text-center mb-4">Calcular Frete <i class="bi bi-truck text-success"></i></h2>
+
+                <div class="mb-3">
+                    <label for="frete" class="form-label">Digite seu CEP :</label>
+                    <input type="text" name="frete" id="frete" class="form-control" aria-describedby="helpId" />
+                    <small id="helpId" class="text-muted">Digite só números</small>
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label for="" class="form-label">Opções de frete</label>
+                    <select class="form-select form-select-lg" name="" id="">
+
+                        <option selected>Selecione o tipo de frete</option>
+                        <option value="">Correios</option>
+                        <option value="">Sedex</option>
+                        <option value="">FedEx</option>
+                    </select>
+
+                </div>
+
+                <div class="d-flex justify-content-end ">
+                    <button type="submit" name="calcularFrete" id="calculaFrete" class="btn btn-lg btn-dark">
+                        Calcular Frete
+                    </button>
+                </div>
+
+            </article>
+
+            <article class="col-5 p-4 border rounded-4 justify-content-center align-items-center g-2 shadow">
+
+                <!-- Resumo do pedido -->
+                <h2 class="text-center mb-4">Resumo do pedido</h2>
+
+
+                <p id="subtotal" class="fs-5">Sub Total: R$ 0,00</p>
+                <p id="freteValor" class="fs-5">Frete: R$ 0,00</p>
+                <p id="total" class="fs-3">Total a pagar: R$ 0,00</p>
+
+                <div class="d-grid">
+
+                    <button type="submit" class="btn btn-lg btn-warning mt-4">
+                        Ir para Pagamento <i class="bi bi-credit-card-2-back ms-1"></i>
+                    </button>
+
+                </div>
+
+
+            </article>
+
+        </div>
+
+
+
+    </div>
+
+
+</section>
+
+
+<!-- Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Script JavaScript -->
+<script>
+    // Função para adicionar produto ao carrinho
+    function addProduct(event) {
+        event.preventDefault();
+        const productName = document.getElementById('productName').value;
+        const productPrice = parseFloat(document.getElementById('productPrice').value);
+        const quantity = 1; // Por enquanto, vamos assumir que a quantidade é sempre 1
+        const subtotal = productPrice * quantity;
+
+        // Criar uma nova linha na tabela para o produto adicionado
+        const newRow = `<tr>
+                         <td>
+                           <div class="media">
+                             <img src="placeholder.jpg" class="mr-3" alt="Imagem do Produto" style="width: 64px;">
+                             <div class="media-body">
+                               <h5 class="mt-0">${productName}</h5>
+                               Descrição do Produto...
+                             </div>
+                           </div>
+                         </td>
+                         <td>R$ ${productPrice.toFixed(2)}</td>
+                         <td>
+                           <div class="input-group">
+                             <div class="input-group-prepend">
+                               <button class="btn btn-outline-secondary" type="button" onclick="decrementQuantity(this)">-</button>
+                             </div>
+                             <input type="number" value="${quantity}" min="1" class="form-control quantity-input" onchange="updateSubtotal()">
+                             <div class="input-group-append">
+                               <button class="btn btn-outline-secondary" type="button" onclick="incrementQuantity(this)">+</button>
+                             </div>
+                           </div>
+                         </td>
+                         <td>
+                           <button class="btn btn-danger" onclick="removeProduct(this)">Remover</button>
+                         </td>
+                       </tr>`;
+
+        // Adicionar a nova linha à tabela
+        document.querySelector('#cartTable tbody').innerHTML += newRow;
+
+        // Atualizar subtotal
+        updateSubtotal();
+    }
+
+    // Função para remover produto do carrinho
+    function removeProduct(btn) {
+        const row = btn.closest('tr');
+        row.remove();
+        // Atualizar subtotal após remover produto
+        updateSubtotal();
+    }
+
+    // Função para incrementar a quantidade
+    function incrementQuantity(button) {
+        const input = button.parentNode.previousElementSibling;
+        input.value = parseInt(input.value) + 1;
+        updateSubtotal();
+    }
+
+    // Função para decrementar a quantidade
+    function decrementQuantity(button) {
+        const input = button.parentNode.nextElementSibling;
+        if (parseInt(input.value) > 1) {
+            input.value = parseInt(input.value) - 1;
+            updateSubtotal();
+        }
+    }
+
+    // Função para atualizar o subtotal
+    function updateSubtotal() {
+        let subtotal = 0;
+        const rows = document.querySelectorAll('#cartTable tbody tr');
+        rows.forEach(row => {
+            const price = parseFloat(row.cells[1].innerText.replace('R$ ', ''));
+            const quantity = parseInt(row.querySelector('.quantity-input').value);
+            subtotal += price * quantity;
+        });
+        const frete = subtotal > 100 ? 0 : 10; // Exemplo de cálculo de frete (frete grátis se subtotal > R$ 100)
+
+        // Atualizar subtotal e frete na página
+        document.getElementById('subtotal').innerText = `Subtotal: R$ ${subtotal.toFixed(2)}`;
+        document.getElementById('frete').innerText = `Frete: R$ ${frete.toFixed(2)}`;
+    }
+
+    // Adicionar evento de submit para o formulário de adicionar produto
+    document.getElementById('addProductForm').addEventListener('submit', addProduct);
+</script>
+
+</body>
+
+</html>
