@@ -39,11 +39,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registerCliente").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/loginCliente").permitAll()
+                        .requestMatchers(HttpMethod.PATCH,"/registerUsers/{id}/activate").permitAll()
+                        .requestMatchers(HttpMethod.PATCH,"/registerUsers/{id}/deactivate").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

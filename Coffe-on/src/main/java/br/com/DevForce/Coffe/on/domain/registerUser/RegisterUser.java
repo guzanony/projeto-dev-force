@@ -18,6 +18,8 @@ public class RegisterUser {
     private String password;
     private String cpf;
     private String grupo;
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 
     public RegisterUser(RequestRegisterUser requestRegisterUser) {
         this.username = requestRegisterUser.username();
@@ -35,4 +37,11 @@ public class RegisterUser {
         this.password = password;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
