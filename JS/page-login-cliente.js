@@ -26,11 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             })
             .then(data => {
-                // Store received user data (assuming 'nome' property for name)
                 sessionStorage.setItem('userData', JSON.stringify(data));
 
-                // Redirect to main screen with query string parameter
-                window.location.href = '/projeto-dev-force/html/produtos-principal.html?nome=' + encodeURIComponent(data.nome);
+                window.location.href = '/projeto-dev-force/html/produtos-principal2.html?nomeCompleto=' + encodeURIComponent(data.nomeCompleto);
             })
             .catch((error) => {
                 console.error('Erro:', error);

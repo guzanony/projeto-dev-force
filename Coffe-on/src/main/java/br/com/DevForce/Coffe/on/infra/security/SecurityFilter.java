@@ -40,6 +40,19 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    //protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        //var token = this.recoverToken(request);
+       // var login = tokenService.validateToken(token);
+
+        //if(login != null){
+           // UserAdmin userAdmin = userAdminRepository.findByUsername(login).orElseThrow(() -> new RuntimeException("User Not Found"));
+           // var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+           // var authentication = new UsernamePasswordAuthenticationToken(userAdmin, null, authorities);
+            //SecurityContextHolder.getContext().setAuthentication(authentication);
+      //  }
+       // filterChain.doFilter(request, response);
+  //  }
+
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
         if(authHeader == null) return null;
