@@ -22,6 +22,8 @@ public class Product {
     private Integer quantidade;
     private BigDecimal preco;
     private String descricao;
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 
     public Product (RequestProducts requestProducts) {
         this.nome = requestProducts.nome();
@@ -29,6 +31,14 @@ public class Product {
         this.quantidade = requestProducts.quantidade();
         this.preco = requestProducts.preco();
         this.descricao = requestProducts.descricao();
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
 }
