@@ -1,4 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
+const cartBadge = document.getElementById('cart-badge');
+console.log('cartBadge:', cartBadge);
+    let itemCount = 0;
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+            console.log('Button found:', button);
+        button.addEventListener('click', function() {
+            itemCount++;
+            console.log('Item count:', itemCount);
+            cartBadge.textContent = itemCount;
+            alert('Produto adicionado ao carrinho!');
+        });
+    });
   const urlParams = new URLSearchParams(window.location.search);
   const nome = urlParams.get('nomeCompleto');
   if (nome) {
