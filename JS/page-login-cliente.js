@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 sessionStorage.setItem('userData', JSON.stringify(data));
 
-                window.location.href = '/projeto-dev-force/html/produtos-principal2.html?nomeCompleto=' + encodeURIComponent(data.nomeCompleto);
+                window.location.href = '/html/produtos-principal2.html?nomeCompleto=' + encodeURIComponent(data.nomeCompleto);
             })
             .catch((error) => {
                 console.error('Erro:', error);

@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .then((valor) => {
         window.location.href =
-          "/projeto-dev-force/html/page-login-cliente.html";
+          "/html/page-login-cliente.html";
         console.log("Sucesso", valor);
       })
       .catch((erro) => {
