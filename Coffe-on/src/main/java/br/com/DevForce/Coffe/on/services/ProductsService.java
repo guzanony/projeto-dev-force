@@ -29,7 +29,7 @@ public class ProductsService {
 
 
 
-    public boolean activateUser(String id) {
+    public boolean activateUser(Long id) {
         return productsRepository.findById(id)
                 .map(product -> {
                     product.setActive(true);
@@ -38,7 +38,7 @@ public class ProductsService {
                 }).orElse(false);
     }
 
-    public boolean deactivateUser(String id) {
+    public boolean deactivateUser(Long id) {
         return productsRepository.findById(id)
                 .map(product -> {
                     product.setActive(false);

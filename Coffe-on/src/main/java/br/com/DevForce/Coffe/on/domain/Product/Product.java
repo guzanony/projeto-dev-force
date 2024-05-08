@@ -23,7 +23,7 @@ public class Product {
     private BigDecimal preco;
     private String descricao;
 
-    @Column(name = "active", nullable = false)
+    @Column(name = "active", nullable = true)
     private boolean active = true;
 
 

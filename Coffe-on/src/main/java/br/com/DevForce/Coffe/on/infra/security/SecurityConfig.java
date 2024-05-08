@@ -41,8 +41,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/loginCliente").permitAll()
                         .requestMatchers(HttpMethod.PATCH,"/registerUsers/{id}/activate").permitAll()
                         .requestMatchers(HttpMethod.PATCH,"/registerUsers/{id}/deactivate").permitAll()
-                        .requestMatchers(HttpMethod.PATCH,"/productsRepository/{id}/activate").permitAll()
-                        .requestMatchers(HttpMethod.PATCH,"/productsRepository/{id}/deactivate").permitAll()
+                        .requestMatchers(HttpMethod.PATCH,"/{id}/activate").permitAll()
+                        .requestMatchers(HttpMethod.PATCH,"/{id}/deactivate").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/productsRepository/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
