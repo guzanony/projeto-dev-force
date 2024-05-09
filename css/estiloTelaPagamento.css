@@ -1,0 +1,326 @@
+.cont-pagamento {
+
+    background-color: white;
+    height: 100px;
+}
+
+.menu-pag{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+ .itens-menu{
+    font-style:none ;
+    font-size: 20px;
+    color: black;
+ }
+
+ .itens-menu:hover{
+     color: rgba(1, 1,1,0.5);
+     text-decoration: none;
+ }
+.identific::before{
+    content: " ";
+    height: 50px;
+    width: 50px;
+    margin-left: -60px;
+    margin-top: -10px;
+    background-size: 50px;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/login\(1\).png);
+}
+.identific{
+    color:rgba(1, 1,1,0.5);
+}
+.entreg::before{
+    content: " ";
+    height: 50px;
+    width: 50px;
+    margin-left: -60px;
+    margin-top: -10px;
+    background-size: 50px;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/truck.png);
+}
+.entreg{
+    color:rgba(1, 1,1,0.5);
+}
+.pag::before{
+    content: " ";
+    height: 50px;
+    width: 50px;
+    margin-left: -60px;
+    margin-top: -10px;
+    background-size: 50px;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(../images/credit-card.png);
+}
+
+ .cont{
+     margin-top: 40px;
+     width: 600px;
+     border-width: 1px;
+     border-style: solid;
+     border-color:rgb(226,223,223);
+     background-color: transparent;
+ }
+ .credito{
+    margin-right: 6vw;
+ }
+
+ .resume-ped{
+    height: 600px;
+ }
+
+.opcao{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.bandeira{
+    margin-top:20px;
+    width: 60px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.itau{
+    background-image: url(../img/341.png);
+}
+.brad{
+    background-image: url(../img/237.png);
+}
+.barra-boleto{
+    background-image: url(../img/boleto.jpg);
+}
+.amex label{
+    background-image: url(../img/AE.png);
+}
+.visa label{
+    background-image: url(../img/VI.png);
+}
+.master label{
+    background-image: url(../img/MC.png);
+}
+.elo label{
+    background-image: url(../img/EL.png);
+}
+.hiper label{
+    background-image: url(../img/HI.png);
+}
+.jbc label{
+    background-image: url(../img/JC.png);
+}
+.circ label{
+    background-image: url(../img/DI.png);
+}
+.opcao-pagamento-cred-ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 10px;
+}
+.opcao-pagamento-cred-ul::after{
+    content: "";
+    clear: both;
+}
+.opcao-pagamento-cred{
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    float: left;
+    height: 40px;
+    position: relative;
+    width: 55px;
+    margin-left: 10px;
+    border-style: none;
+}
+.opcao-pagamento-cred label{
+    background-color:white;
+    background-size: 60px;
+    background-repeat:no-repeat;
+    background-position:center center;
+    height: 40px;
+    width: 55px;
+    cursor: pointer;
+    display: block;
+    font-size: 0;
+    position: absolute;
+    text-indent: 100%;
+    top: 1px;
+    bottom: 1px;
+    left: 1px;
+    right: 1px;
+}
+.opcao-pagamento-cred input:focus + label {
+    border: 4px solid #21b4d0;
+}
+
+.radio-cred{
+    visibility: hidden;
+}
+
+
+.input-radio-1{
+     margin-top: 10px;
+}
+
+.label-pagamento{
+     margin-top: 7px;
+}
+.dim{
+    font-size: 12px;
+    margin-top: 50px;
+
+}
+.rac{
+    font-weight: bold;
+}
+
+.numero-center{
+    font-size: 40px;
+}
+.traco-foot{
+    height: 100px;
+    width: 1px;
+    background-color: darkgray;
+    margin-top: 20px;
+}
+.termos-uso{
+    color: grey;
+    font-size: 15px;
+    margin-top: 40px;
+    margin-bottom: 15px;
+
+}
+.pedido-text{
+    margin-top: 100px;
+    font-size: 30px;
+    color: #016f33;
+}
+.label-cred{
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+ .num-cred{
+    margin-left: 20px;
+    width: 600px;
+    border-radius: 20px;
+ }
+.num-cred:focus{
+    border-radius: 20px;
+}
+
+ .bandeiras{
+     margin-left: 20px;
+ }
+
+.data-cred{
+    margin-left: 20px;
+    width: 200px;
+    border-radius: 20px;
+}
+.input-radio-4{
+    margin-top: 5px;
+    margin-left: 40px;
+}
+.label-salva{
+
+    font-size: 15px;
+    margin-left: 10px;
+}
+.cont-pagamento{
+    color: #016f33;
+}
+.pedido-cupom{
+    margin-top: 40px;
+    font-size: 20px;
+    color: darkgrey;
+}
+.num-cp{
+    width: 450px;
+    border-radius: 20px;
+}
+
+.ul-item{
+    margin-top: 30px;
+    font-size: 20px;
+}
+
+.li-pag{
+    display: inline;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.li-item-pag{
+    display: inline;
+    margin-left: 40px;
+    margin-right: 40px;
+    text-decoration: double;
+}
+
+.btnf{
+    background-color: #016f33;
+    border-color: #016f33;
+    border-radius: 10px,0,10px,0;
+    margin-top: 30px;
+    margin-left: 40px;
+    width: 450px;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+.btnf:hover{
+    background-color: #023a1b;
+    border-color: #023a1b;
+
+}
+.nome-produto{
+    resize: none;
+    width: 120px;
+    height: 200px;
+    margin-left: -20px;
+    border-style: none;
+}
+.qtd-produto{
+    resize: none;
+    width: 30px;
+    margin-left: -30px;
+    height: 160px;
+    border-style: none;
+}
+.valor-produto{
+    resize: none;
+    width: 80px;
+    height: 160px;
+    border-style: none;
+    margin-left: -15px;
+}
+.valor-produto-sub{
+    width: 80px;
+    margin-left: 90px;
+}
+.txted:hover{
+    resize: none;
+    border-style: none;
+}
+.valor-produto-sub{
+    resize: none;
+    width: 85px;
+    border-style: none;
+    height: 40px;
+}
+.valor-produto-total{
+    resize: none;
+    width: 85px;
+    border-style: none;
+    height: 40px;
+}
