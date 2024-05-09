@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -80,7 +81,6 @@ public class ClienteController {
         return ResponseEntity.ok(new ResponseDTO(newCliente.getNomeCompleto(), token));
     }
 
-
     @PostMapping("/validateTokenCliente")
     public ResponseEntity validateTokenCliente(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
@@ -92,6 +92,17 @@ public class ClienteController {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping("/cliente/me")
+    public ResponseEntity<Cliente> getMyInfo(Principal principal) {
+        String username = principal.getName();
+        Optional<Cliente> cliente = repository.findByEmail(username);
+        if (cliente.isPresent()) {
+            return ResponseEntity.ok(cliente.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
