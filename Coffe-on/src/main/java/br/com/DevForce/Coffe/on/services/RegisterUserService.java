@@ -53,4 +53,17 @@ public class RegisterUserService  {
                     return true;
                 }).orElse(false);
     }
+
+    public RegisterUser updateUser(String userId, RequestRegisterUser requestRegisterUser) throws Exception {
+        RegisterUser user = registerUserRepository.findById(userId)
+                .orElseThrow(() -> new Exception("Usuário não encontrado"));
+
+        user.setUsername(requestRegisterUser.getUsername());
+        user.setEmail(requestRegisterUser.getEmail());
+        user.setPassword(requestRegisterUser.getPassword());
+        user.setCpf(requestRegisterUser.getCpf());
+        user.setGrupo(requestRegisterUser.getGrupo());
+
+        return registerUserRepository.save(user);
+    }
 }

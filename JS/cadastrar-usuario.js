@@ -7,7 +7,7 @@ const igrupo = document.querySelector(".grupo");
 
 // Função para validar CPF
 function validarCPF(cpf) {
-  cpf = cpf.replace(/[^\d]+/g, ''); // Remove tudo o que não é dígito
+  cpf = cpf.replace(/[^\d]+/g, '');
   if (cpf.length !== 11) {
     return false;
   }
@@ -53,7 +53,7 @@ function loadUserData(userId) {
     .then(user => {
       iusername.value = user.username;
       iemail.value = user.email;
-      ipassword.value = user.password; // Considerar questões de segurança aqui
+      ipassword.value = user.password;
       icpf.value = user.cpf;
       igrupo.value = user.grupo;
     })
@@ -69,7 +69,7 @@ function cadastrar() {
 
   const userId = new URLSearchParams(window.location.search).get('userId');
   const method = userId ? 'PUT' : 'POST';
-  const apiUrl = userId ? 'http://localhost:8080/registerUsers/' + userId : 'http://localhost:8080/registerUsers';
+    const apiUrl = `http://localhost:8080/registerUsers${userId ? `/${userId}` : ''}`;
 
   fetch(apiUrl, {
     headers: {
