@@ -68,5 +68,15 @@ public class RegisterUserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @CrossOrigin("*")
+    @PutMapping("/registerUsers/{userId}")
+    public ResponseEntity<?> updateUser(@PathVariable String userId, @RequestBody RequestRegisterUser requestRegisterUser) {
+        try {
+            RegisterUser updatedUser = registerUserService.updateUser(userId, requestRegisterUser);
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro ao atualizar o usuário: " + e.getMessage());
+        }
+    }
 
 }
