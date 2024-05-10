@@ -23,10 +23,6 @@ public class Product {
     private BigDecimal preco;
     private String descricao;
 
-    @Column(name = "active", nullable = true)
-    private boolean active = true;
-
-
     public Product (RequestProducts requestProducts) {
         this.nome = requestProducts.nome();
         this.avaliacao = requestProducts.avaliacao();
@@ -34,14 +30,5 @@ public class Product {
         this.preco = requestProducts.preco();
         this.descricao = requestProducts.descricao();
     }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
 
 }

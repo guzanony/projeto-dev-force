@@ -19,7 +19,6 @@ import java.util.Optional;
 public class ProductController {
 
     private final ProductsService productsService;
-    private ProductsRepository productsRepository;
 
     @Autowired
     public ProductController(ProductsService productService) {
@@ -35,36 +34,6 @@ public class ProductController {
     public ResponseEntity<Product> adicionarProduto(@RequestBody @Valid RequestProducts data) {
         Product newProduct = productsService.registerNewProduct(data);
         return ResponseEntity.ok(newProduct);
-    }
-
-
-
-    @GetMapping("/productsRepository/{id}")
-    public ResponseEntity<Product> getUserById(@PathVariable Long id) {
-        Optional<Product> user = productsRepository.findById(id);
-        return user.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @PatchMapping("/{id}/activate")
-    public ResponseEntity<?> activateUser(@PathVariable Long id) {
-        boolean activated = productsService.activateUser(id);
-        if (activated) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Endpoint para desativar produto
-    @PatchMapping("/{id}/deactivate")
-    public ResponseEntity<?> deactivateUser(@PathVariable Long id) {
-        boolean deactivated = productsService.deactivateUser(id);
-        if (deactivated) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 
 }
