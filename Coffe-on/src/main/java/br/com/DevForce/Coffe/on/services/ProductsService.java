@@ -26,24 +26,4 @@ public class ProductsService {
         Product newProduct = new Product(requestProducts);
         return productsRepository.save(newProduct);
     }
-
-
-
-    public boolean activateUser(Long id) {
-        return productsRepository.findById(id)
-                .map(product -> {
-                    product.setActive(true);
-                    productsRepository.save(product);
-                    return true;
-                }).orElse(false);
-    }
-
-    public boolean deactivateUser(Long id) {
-        return productsRepository.findById(id)
-                .map(product -> {
-                    product.setActive(false);
-                    productsRepository.save(product);
-                    return true;
-                }).orElse(false);
-    }
 }
