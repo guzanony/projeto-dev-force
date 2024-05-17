@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,7 @@ public class ClienteController {
         Cliente cliente = this.repository.findByEmail(body.email()).orElseThrow(()-> new RuntimeException("User not found"));
         if(passwordEncoder.matches(body.password(), cliente.getPassword())) {
             String token = this.tokenService.generateToken(cliente);
-            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), token)); //O que meu front end espera
+            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getUserId(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -77,9 +78,8 @@ public class ClienteController {
         repository.save(newCliente);
 
         String token = tokenService.generateToken(newCliente);
-        return ResponseEntity.ok(new ResponseDTO(newCliente.getNomeCompleto(), token));
+        return ResponseEntity.ok(new ResponseDTO(newCliente.getNomeCompleto(), newCliente.getUserId(), token));
     }
-
 
     @PostMapping("/validateTokenCliente")
     public ResponseEntity validateTokenCliente(HttpServletRequest request) {
@@ -92,6 +92,17 @@ public class ClienteController {
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @GetMapping("/cliente/me")
+    public ResponseEntity<Cliente> getMyInfo(Principal principal) {
+        String username = principal.getName();
+        Optional<Cliente> cliente = repository.findByEmail(username);
+        if (cliente.isPresent()) {
+            return ResponseEntity.ok(cliente.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

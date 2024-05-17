@@ -22,6 +22,7 @@ public class Cliente {
     private String password;
     private String email;
     private String cpf;
+    private String userId;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<EnderecoEntrega> enderecosEntrega;
@@ -144,6 +145,14 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
 

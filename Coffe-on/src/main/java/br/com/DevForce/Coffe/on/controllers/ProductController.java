@@ -2,6 +2,7 @@ package br.com.DevForce.Coffe.on.controllers;
 
 import br.com.DevForce.Coffe.on.domain.Product.Product;
 import br.com.DevForce.Coffe.on.domain.Product.RequestProducts;
+import br.com.DevForce.Coffe.on.domain.Product.ProductsRepository;
 import br.com.DevForce.Coffe.on.services.ProductsService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @CrossOrigin("*")
@@ -32,4 +35,5 @@ public class ProductController {
         Product newProduct = productsService.registerNewProduct(data);
         return ResponseEntity.ok(newProduct);
     }
+
 }

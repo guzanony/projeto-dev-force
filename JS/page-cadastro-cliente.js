@@ -1,12 +1,38 @@
 document.addEventListener("DOMContentLoaded", function () {
+  fetchUserData();
+
   const formulario = document.getElementById("cadastroClienteForm");
-  const botaoAdicionarEndereco = document.getElementById(
-    "adicionarEnderecoEntrega"
-  );
+  const botaoAdicionarEndereco = document.getElementById("adicionarEnderecoEntrega");
   const divEnderecosEntrega = document.getElementById("enderecosEntrega");
   let contadorEnderecos = 0;
 
-  function validarCPF(cpf) {
+  function fetchUserData() {
+      fetch('/auth/cliente/me', {
+          headers: {
+              'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+          }
+      })
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('nome').value = data.nome;
+        document.getElementById('email').value = data.email;
+        document.getElementById('cpf').value = data.cpf;
+        document.getElementById('data-nascimento').value = data.dataNascimento.split('T')[0]; // Ajuste conforme o formato recebido
+        document.getElementById('genero').value = data.genero;
+
+        document.getElementById('logradouro-faturamento').value = data.endereco.logradouro; // Ajuste conforme o nome real do campo em sua API
+        document.getElementById('numero-faturamento').value = data.endereco.numero;
+        document.getElementById('complemento-faturamento').value = data.endereco.complemento;
+        document.getElementById('bairro-faturamento').value = data.endereco.bairro;
+        document.getElementById('cidade-faturamento').value = data.endereco.cidade;
+        document.getElementById('cep-faturamento').value = data.endereco.cep;
+        document.getElementById('uf-faturamento').value = data.endereco.uf;
+      })
+      .catch(error => console.error('Erro ao carregar os dados do usuário:', error));
+  }
+
+
+  function validarCPF(cpf) { 
     cpf = cpf.replace(/[^\d]+/g, ""); // Remove tudo o que não é dígito
     if (cpf.length !== 11) {
       return false;
