@@ -55,6 +55,7 @@ public class UserAdminController {
         return ResponseEntity.badRequest().build();
     }
 
+
     @PostMapping("/validateToken")
     public ResponseEntity validateToken(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
