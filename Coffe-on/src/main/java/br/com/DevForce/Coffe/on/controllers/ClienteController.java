@@ -36,7 +36,7 @@ public class ClienteController {
         Cliente cliente = this.repository.findByEmail(body.email()).orElseThrow(()-> new RuntimeException("User not found"));
         if(passwordEncoder.matches(body.password(), cliente.getPassword())) {
             String token = this.tokenService.generateToken(cliente);
-            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getUserId(), token));
+            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getNomeCompleto(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -78,7 +78,7 @@ public class ClienteController {
         repository.save(newCliente);
 
         String token = tokenService.generateToken(newCliente);
-        return ResponseEntity.ok(new ResponseDTO(newCliente.getNomeCompleto(), newCliente.getUserId(), token));
+        return ResponseEntity.ok(new ResponseDTO(newCliente.getEmail(), newCliente.getNomeCompleto(), token));
     }
 
     @PostMapping("/validateTokenCliente")
