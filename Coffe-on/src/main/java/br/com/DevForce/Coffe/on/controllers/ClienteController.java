@@ -31,6 +31,7 @@ public class ClienteController {
         this.passwordEncoder = passwordEncoder;
         this.tokenService = tokenService;
     }
+
     @PostMapping("/loginCliente")
     public ResponseEntity loginCliente(@RequestBody LoginClienteDTO body) {
         Cliente cliente = this.repository.findByEmail(body.email()).orElseThrow(()-> new RuntimeException("User not found"));
@@ -82,7 +83,7 @@ public class ClienteController {
     }
 
     @PostMapping("/validateTokenCliente")
-    public ResponseEntity validateTokenCliente(HttpServletRequest request) {
+    public ResponseEntity<?> validateTokenCliente(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);

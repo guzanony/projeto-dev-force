@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @CrossOrigin("*")
@@ -36,4 +34,23 @@ public class ProductController {
         return ResponseEntity.ok(newProduct);
     }
 
+    @PatchMapping("/{id}/activate")
+    public ResponseEntity<?> activeProduct(@PathVariable Long id) {
+        boolean activated = productsService.activeProduct(id);
+        if (activated) {
+            return  ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PatchMapping("/{id}/deactivade")
+    public ResponseEntity<?> deactivateProduct(@PathVariable Long id) {
+        boolean deactivated = productsService.deactivateProduct(id);
+        if (deactivated) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
