@@ -1,6 +1,7 @@
 package br.com.DevForce.Coffe.on.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public record RegisterClienteDTO(
         String nomeCompleto,
@@ -13,14 +14,9 @@ public record RegisterClienteDTO(
         String bairroFaturamento,
         String cidadeFaturamento,
         String ufFaturamento,
-        String cep,
-        String logradouro,
-        String numero,
-        String complemento,
-        String bairro,
-        String cidade,
-        String uf,
-        String password,
         String email,
-        String cpf
+        String cpf,
+        String password,
+
+        List<EnderecoEntregaDTO> enderecosEntrega
 ) {}
