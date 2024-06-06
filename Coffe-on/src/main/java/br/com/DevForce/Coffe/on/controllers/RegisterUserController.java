@@ -48,7 +48,6 @@ public class RegisterUserController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Endpoint para ativar usuário
     @PatchMapping("/{id}/activate")
     public ResponseEntity<?> activateUser(@PathVariable String id) {
         boolean activated = registerUserService.activateUser(id);
@@ -59,7 +58,6 @@ public class RegisterUserController {
         }
     }
 
-    // Endpoint para desativar usuário
     @PatchMapping("/{id}/deactivate")
     public ResponseEntity<?> deactivateUser(@PathVariable String id) {
         boolean deactivated = registerUserService.deactivateUser(id);

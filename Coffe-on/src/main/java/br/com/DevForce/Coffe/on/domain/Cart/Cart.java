@@ -12,13 +12,15 @@ public class Cart {
     private Long id;
     private String userId;
 
+    private String nomeCompleto;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();
 
     public Cart() {}
 
-    public Cart(String userId) {
-        this.userId = userId;
+    public Cart(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
     }
 
     public void addItem(CartItem item) {
@@ -47,5 +49,13 @@ public class Cart {
 
     public void setItems(List<CartItem> items) {
         this.items = items;
+    }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
     }
 }

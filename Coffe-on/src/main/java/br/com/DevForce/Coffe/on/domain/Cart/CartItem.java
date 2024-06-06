@@ -14,12 +14,14 @@ public class CartItem {
     private String userId;
     private String productId;
     private int quantity;
+    private String nomeCompleto;
 
     public CartItem() {}
 
-    public CartItem(String userId, String productId, int quantity) {
+    public CartItem(String userId, String productId, int quantity, String nomeCompleto) {
         this.userId = userId;
         this.productId = productId;
+        this.nomeCompleto = nomeCompleto;
         this.quantity = quantity;
     }
 
@@ -45,6 +47,14 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getNomeCompleto() {
+        return nomeCompleto;
+    }
+
+    public void setNomeCompleto(String nomeCompleto) {
+        this.nomeCompleto = nomeCompleto;
     }
 }
 

@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/api/cart" ).permitAll()
                         .requestMatchers(HttpMethod.PATCH,"/products/{id}/activate").permitAll()
                         .requestMatchers(HttpMethod.PATCH,"/products/{id}/deactivade").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/products/image/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
