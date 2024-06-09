@@ -313,7 +313,7 @@ const toggleMessage = (msg) => {
 addressForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  toggleLoader();
+  toggleLoader();z
 
   setTimeout(() => {
     toggleLoader();

@@ -5,8 +5,6 @@ import lombok.*;
 
 @Table(name="useradmin")
 @Entity(name="useradmin")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")

@@ -58,7 +58,6 @@ public class RegisterUserController {
         }
     }
 
-    // Endpoint para desativar usuário
     @PatchMapping("/{id}/deactivate")
     public ResponseEntity<?> deactivateUser(@PathVariable String id) {
         boolean deactivated = registerUserService.deactivateUser(id);
