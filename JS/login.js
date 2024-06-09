@@ -21,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         if (data.token) {
             // Armazena o token no localStorage ou em cookies
             localStorage.setItem('token', data.token);
-            window.location.href = '/html/TelaPrincipal.html';
+            window.location.href = '../html/TelaPrincipal.html';
         } else {
             alert('Login falhou');
         }
