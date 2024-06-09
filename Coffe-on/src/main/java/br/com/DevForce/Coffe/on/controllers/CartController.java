@@ -1,56 +1,80 @@
 package br.com.DevForce.Coffe.on.controllers;
 
 import br.com.DevForce.Coffe.on.domain.Cart.Cart;
-import br.com.DevForce.Coffe.on.domain.Cart.CartItem;
 import br.com.DevForce.Coffe.on.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@CrossOrigin("*")
+import java.util.Optional;
+
 @RestController
-@RequestMapping("/api/cart")
+@CrossOrigin("*")
+@RequestMapping("/carts")
 public class CartController {
-
-    private static final Logger logger = LoggerFactory.getLogger(CartController.class);
 
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/add")
-    public ResponseEntity<?> addToCart(@RequestBody CartItem cartItem) {
-        logger.info("Received request to add to cart: {}", cartItem);
-        if (cartItem.getQuantity() <= 0) {
-            logger.error("Quantity must be greater than zero.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Quantity must be greater than zero.");
+    @PostMapping
+    public Cart createCart() {
+        return cartService.createCart();
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Cart> getCart(@PathVariable Long id) {
+        return cartService.getCart(id);
+    }
+
+    @PostMapping("/{cartId}/items")
+    public Cart addItemToCart(@PathVariable Long cartId, @RequestBody AddItemRequest request) {
+        return cartService.addItemToCart(cartId, request.getProductId(), request.getQuantity());
+    }
+
+    @DeleteMapping("/{cartId}/items/{itemId}")
+    public void removeItemFromCart(@PathVariable Long cartId, @PathVariable Long itemId) {
+        cartService.removeItemFromCart(cartId, itemId);
+    }
+
+    @GetMapping("/{cartId}/count")
+    public int getItemCount(@PathVariable Long cartId) {
+        return cartService.getItemCount(cartId);
+    }
+
+    @PutMapping("/{cartId}/items/{itemId}")
+    public void updateItemQuantity(@PathVariable Long cartId, @PathVariable Long itemId, @RequestBody UpdateItemQuantityRequest request) {
+        cartService.updateItemQuantity(cartId, itemId, request.getQuantity());
+    }
+
+    public static class AddItemRequest {
+        private Long productId;
+        private int quantity;
+
+        public Long getProductId() {
+            return productId;
         }
-        try {
-            Cart updatedCart = cartService.addToCart(cartItem);
-            logger.info("Item added to cart successfully: {}", updatedCart);
-            return ResponseEntity.ok(updatedCart);
-        } catch (Exception e) {
-            logger.error("Error adding item to cart", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding item to cart: " + e.getMessage());
+
+        public void setProductId(Long productId) {
+            this.productId = productId;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
         }
     }
 
-    @GetMapping
-    public ResponseEntity<?> getCart(@RequestParam String nomeCompleto) {
-        logger.info("Received request to get cart for user: {}", nomeCompleto);
-        try {
-            Cart cart = cartService.getCartByNomeCompleto(nomeCompleto);
-            if (cart == null) {
-                logger.warn("Cart not found for user: {}", nomeCompleto);
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cart not found for user: " + nomeCompleto);
-            }
-            logger.info("Cart retrieved successfully for user: {}", nomeCompleto);
-            return ResponseEntity.ok(cart);
-        } catch (Exception e) {
-            logger.error("Error retrieving cart for user: {}", nomeCompleto, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving cart: " + e.getMessage());
+    public static class UpdateItemQuantityRequest {
+        private int quantity;
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(int quantity) {
+            this.quantity = quantity;
         }
     }
 }

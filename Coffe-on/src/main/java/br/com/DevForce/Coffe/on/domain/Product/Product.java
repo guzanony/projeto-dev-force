@@ -7,28 +7,32 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "products")
+@Entity
 @Table(name = "products")
 public class Product {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private Double avaliacao;
     private Integer quantidade;
     private BigDecimal preco;
     private String descricao;
+
     @Column(name = "image")
     private byte[] image;
 
     @Column(name = "active", nullable = false)
     private boolean active = true;
 
-    public Product (RequestProducts requestProducts) {
+    public Product(RequestProducts requestProducts) {
         this.nome = requestProducts.getNome();
         this.avaliacao = requestProducts.getAvaliacao();
         this.quantidade = requestProducts.getQuantidade();
@@ -36,6 +40,7 @@ public class Product {
         this.descricao = requestProducts.getDescricao();
         this.active = requestProducts.getActive();
     }
+
 
 
     public void setActive(boolean active) {
