@@ -17,6 +17,5 @@ public record RegisterClienteDTO(
         String email,
         String cpf,
         String password,
-
         List<EnderecoEntregaDTO> enderecosEntrega
 ) {}

@@ -2,6 +2,7 @@ package br.com.DevForce.Coffe.on.domain.cliente;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Entity
@@ -25,7 +26,7 @@ public class Cliente {
     private String userId;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<EnderecoEntrega> enderecosEntrega;
+    private List<EnderecoEntrega> enderecosEntrega = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -153,6 +154,28 @@ public class Cliente {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nomeCompleto='" + nomeCompleto + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", genero='" + genero + '\'' +
+                ", cepFaturamento='" + cepFaturamento + '\'' +
+                ", logradouroFaturamento='" + logradouroFaturamento + '\'' +
+                ", numeroFaturamento='" + numeroFaturamento + '\'' +
+                ", complementoFaturamento='" + complementoFaturamento + '\'' +
+                ", bairroFaturamento='" + bairroFaturamento + '\'' +
+                ", cidadeFaturamento='" + cidadeFaturamento + '\'' +
+                ", ufFaturamento='" + ufFaturamento + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", userId='" + userId + '\'' +
+                ", enderecosEntrega=" + enderecosEntrega +
+                '}';
     }
 }
 

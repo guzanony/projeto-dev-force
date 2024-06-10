@@ -3,6 +3,7 @@ package br.com.DevForce.Coffe.on.controllers;
 import br.com.DevForce.Coffe.on.domain.cliente.Cliente;
 import br.com.DevForce.Coffe.on.domain.cliente.ClienteRepository;
 import br.com.DevForce.Coffe.on.domain.cliente.EnderecoEntrega;
+import br.com.DevForce.Coffe.on.domain.cliente.EnderecoEntregaRepository;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdmin;
 import br.com.DevForce.Coffe.on.domain.user.userAdmin.UserAdminRepository;
 import br.com.DevForce.Coffe.on.dto.*;
@@ -26,11 +27,13 @@ public class ClienteController {
     private final ClienteRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
+    private final EnderecoEntregaRepository enderecoEntregaRepository;
 
-    public ClienteController(ClienteRepository repository, PasswordEncoder passwordEncoder, TokenService tokenService) {
+    public ClienteController(ClienteRepository repository, PasswordEncoder passwordEncoder, TokenService tokenService, EnderecoEntregaRepository enderecoEntregaRepository) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
         this.tokenService = tokenService;
+        this.enderecoEntregaRepository = enderecoEntregaRepository;
     }
 
     @PostMapping("/loginCliente")
@@ -45,6 +48,11 @@ public class ClienteController {
 
     @PostMapping("/registerCliente")
     public ResponseEntity<?> registerCliente(@RequestBody RegisterClienteDTO body) {
+        System.out.println("Recebido DTO: " + body);
+        body.enderecosEntrega().forEach(enderecoDTO -> {
+            System.out.println("EnderecoDTO: " + enderecoDTO);
+        });
+
         if (repository.findByEmail(body.email()).isPresent()) {
             return ResponseEntity.badRequest().body("Email já registrado!");
         }
@@ -80,11 +88,15 @@ public class ClienteController {
 
         newCliente.setEnderecosEntrega(enderecosEntrega);
 
+        System.out.println("Cliente antes de salvar: " + newCliente);
+        newCliente.getEnderecosEntrega().forEach(System.out::println);
+
         repository.save(newCliente);
 
         String token = tokenService.generateToken(newCliente);
         return ResponseEntity.ok(new ResponseDTO(newCliente.getEmail(), newCliente.getNomeCompleto(), token));
     }
+
 
     @PostMapping("/validateTokenCliente")
     public ResponseEntity<?> validateTokenCliente(HttpServletRequest request) {
@@ -177,5 +189,10 @@ public class ClienteController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/{clienteId}/enderecos")
+    public List<EnderecoEntrega> getClienteEnderecos(@PathVariable Long clienteId) {
+        return enderecoEntregaRepository.findByClienteId(clienteId);
     }
 }
