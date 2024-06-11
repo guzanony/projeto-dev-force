@@ -41,7 +41,7 @@ public class ClienteController {
         Cliente cliente = this.repository.findByEmail(body.email()).orElseThrow(()-> new RuntimeException("User not found"));
         if(passwordEncoder.matches(body.password(), cliente.getPassword())) {
             String token = this.tokenService.generateToken(cliente);
-            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getNomeCompleto(), token));
+            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getNomeCompleto(), cliente.getId(), token));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -94,7 +94,7 @@ public class ClienteController {
         repository.save(newCliente);
 
         String token = tokenService.generateToken(newCliente);
-        return ResponseEntity.ok(new ResponseDTO(newCliente.getEmail(), newCliente.getNomeCompleto(), token));
+        return ResponseEntity.ok(new ResponseDTO(newCliente.getEmail(), newCliente.getNomeCompleto(), newCliente.getId(), token));
     }
 
 
@@ -192,7 +192,19 @@ public class ClienteController {
     }
 
     @GetMapping("/{clienteId}/enderecos")
-    public List<EnderecoEntrega> getClienteEnderecos(@PathVariable Long clienteId) {
-        return enderecoEntregaRepository.findByClienteId(clienteId);
+    public ResponseEntity<List<EnderecoEntregaDTO>> getClienteEnderecos(@PathVariable Long clienteId) {
+        List<EnderecoEntrega> enderecos = enderecoEntregaRepository.findByClienteId(clienteId);
+        List<EnderecoEntregaDTO> enderecoDTOs = enderecos.stream().map(endereco -> new EnderecoEntregaDTO(
+                endereco.getCep(),
+                endereco.getLogradouro(),
+                endereco.getNumero(),
+                endereco.getComplemento(),
+                endereco.getBairro(),
+                endereco.getCidade(),
+                endereco.getUf()
+        )).collect(Collectors.toList());
+
+        return ResponseEntity.ok(enderecoDTOs);
     }
+
 }

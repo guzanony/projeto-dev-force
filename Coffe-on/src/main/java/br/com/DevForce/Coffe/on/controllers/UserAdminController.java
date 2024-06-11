@@ -33,7 +33,7 @@ public class UserAdminController {
         UserAdmin userAdmin = this.repository.findByUsername(body.username()).orElseThrow(()-> new RuntimeException("User not found"));
         if(passwordEncoder.matches(body.password(), userAdmin.getPassword())) {
             String token = this.tokenService.generateToken(userAdmin);
-            return ResponseEntity.ok(new ResponseDTO(userAdmin.getUsername(), userAdmin.getId(), token)); //O que meu front end espera
+            return ResponseEntity.ok(new ResponseDTO(userAdmin.getUsername(), userAdmin.getName(), userAdmin.getClienteId(), token)); //O que meu front end espera
         }
         return ResponseEntity.badRequest().build();
     }
@@ -50,7 +50,7 @@ public class UserAdminController {
             this.repository.save(newUserAdmin);
 
             String token = this.tokenService.generateToken(newUserAdmin);
-            return ResponseEntity.ok(new ResponseDTO(newUserAdmin.getName(), newUserAdmin.getId(), token));
+            return ResponseEntity.ok(new ResponseDTO(newUserAdmin.getName(), newUserAdmin.getUsername(), newUserAdmin.getClienteId(), token));
         }
         return ResponseEntity.badRequest().build();
     }

@@ -14,6 +14,7 @@ public class UserAdmin {
     private String name;
     private String username;
     private String password;
+    private Long clienteId;
 
     public void setPassword(String password) {
         this.password = password;
@@ -45,5 +46,13 @@ public class UserAdmin {
 
     public String getId() {
         return id;
+    }
+
+    public Long getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 }
