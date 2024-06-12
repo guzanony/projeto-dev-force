@@ -1,5 +1,7 @@
 package br.com.DevForce.Coffe.on.domain.cliente;
 
+import br.com.DevForce.Coffe.on.domain.pedido.Pedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -24,6 +26,9 @@ public class Cliente {
     private String email;
     private String cpf;
     private String userId;
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonBackReference
+    private List<Pedido> pedidos;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<EnderecoEntrega> enderecosEntrega = new ArrayList<>();

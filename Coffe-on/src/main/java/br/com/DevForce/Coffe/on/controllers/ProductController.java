@@ -21,15 +21,22 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductsService productsService;
+    private final ProductsRepository productsRepository;
+
 
     @Autowired
-    public ProductController(ProductsService productService) {
+    public ProductController(ProductsService productService, ProductsRepository productsRepository) {
         this.productsService = productService;
+        this.productsRepository = productsRepository;
     }
 
     @GetMapping
-    public List<Product> listarProdutos() {
-        return productsService.listarProdutos();
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productsRepository.findAll();
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
     }
 
     @PostMapping

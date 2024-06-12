@@ -1,6 +1,10 @@
 package br.com.DevForce.Coffe.on.domain.cliente;
 
+import br.com.DevForce.Coffe.on.domain.pedido.Pedido;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class EnderecoEntrega {
@@ -17,7 +21,12 @@ public class EnderecoEntrega {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
+    @JsonIgnore
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "enderecoEntrega")
+    @JsonIgnore
+    private List<Pedido> pedidos;
 
     public Long getId() {
         return id;

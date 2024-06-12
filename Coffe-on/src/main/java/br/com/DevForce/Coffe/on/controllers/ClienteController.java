@@ -151,46 +151,6 @@ public class ClienteController {
         }
     }
 
-
-    @PutMapping("/cliente/me")
-    public ResponseEntity<?> updateInfoCliente(Principal principal, @RequestBody RegisterClienteDTO body) {
-        String username = principal.getName();
-        Optional<Cliente> optionalCliente = repository.findByEmail(username);
-        if (optionalCliente.isPresent()) {
-            Cliente cliente = optionalCliente.get();
-            cliente.setNomeCompleto(body.nomeCompleto());
-            cliente.setDataNascimento(body.dataNascimento());
-            cliente.setGenero(body.genero());
-            cliente.setCpf(body.cpf());
-
-            cliente.setCepFaturamento(body.cepFaturamento());
-            cliente.setLogradouroFaturamento(body.logradouroFaturamento());
-            cliente.setNumeroFaturamento(body.numeroFaturamento());
-            cliente.setComplementoFaturamento(body.complementoFaturamento());
-            cliente.setBairroFaturamento(body.bairroFaturamento());
-            cliente.setCidadeFaturamento(body.cidadeFaturamento());
-            cliente.setUfFaturamento(body.ufFaturamento());
-
-            cliente.setEnderecosEntrega(body.enderecosEntrega().stream().map(enderecoDTO -> {
-                EnderecoEntrega endereco = new EnderecoEntrega();
-                endereco.setCep(enderecoDTO.cep());
-                endereco.setLogradouro(enderecoDTO.logradouro());
-                endereco.setNumero(enderecoDTO.numero());
-                endereco.setComplemento(enderecoDTO.complemento());
-                endereco.setBairro(enderecoDTO.bairro());
-                endereco.setCidade(enderecoDTO.cidade());
-                endereco.setUf(enderecoDTO.uf());
-                endereco.setCliente(cliente);
-                return endereco;
-            }).collect(Collectors.toList()));
-
-            repository.save(cliente);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
     @GetMapping("/{clienteId}/enderecos")
     public ResponseEntity<List<EnderecoEntregaDTO>> getClienteEnderecos(@PathVariable Long clienteId) {
         List<EnderecoEntrega> enderecos = enderecoEntregaRepository.findByClienteId(clienteId);
@@ -206,5 +166,35 @@ public class ClienteController {
 
         return ResponseEntity.ok(enderecoDTOs);
     }
+    @PostMapping("/{clienteId}/enderecos")
+    public ResponseEntity<EnderecoEntregaDTO> addEndereco(@PathVariable Long clienteId, @RequestBody EnderecoEntregaDTO enderecoDTO) {
+        Optional<Cliente> optionalCliente = repository.findById(clienteId);
+        if (optionalCliente.isPresent()) {
+            Cliente cliente = optionalCliente.get();
+            EnderecoEntrega endereco = new EnderecoEntrega();
+            endereco.setCep(enderecoDTO.cep());
+            endereco.setLogradouro(enderecoDTO.logradouro());
+            endereco.setNumero(enderecoDTO.numero());
+            endereco.setComplemento(enderecoDTO.complemento());
+            endereco.setBairro(enderecoDTO.bairro());
+            endereco.setCidade(enderecoDTO.cidade());
+            endereco.setUf(enderecoDTO.uf());
+            endereco.setCliente(cliente);
+            enderecoEntregaRepository.save(endereco);
 
+            EnderecoEntregaDTO savedEnderecoDTO = new EnderecoEntregaDTO(
+                    endereco.getCep(),
+                    endereco.getLogradouro(),
+                    endereco.getNumero(),
+                    endereco.getComplemento(),
+                    endereco.getBairro(),
+                    endereco.getCidade(),
+                    endereco.getUf()
+            );
+
+            return ResponseEntity.ok(savedEnderecoDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package br.com.DevForce.Coffe.on.domain.Product;
 
+import br.com.DevForce.Coffe.on.domain.pedido.Pedido;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,6 +34,10 @@ public class Product {
 
     @Column(name = "active", nullable = false)
     private boolean active = true;
+
+    @ManyToMany(mappedBy = "produtos")
+    @JsonBackReference
+    private List<Pedido> pedidos;
 
     public Product(RequestProducts requestProducts) {
         this.nome = requestProducts.getNome();
@@ -101,5 +108,13 @@ public class Product {
 
     public Long getId() {
         return id;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }
