@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,13 +41,17 @@ public class UserAdminController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterRequestDTO body){
-        Optional<UserAdmin> user = this.repository.findByUsername(body.username());
+        Optional<UserAdmin> user = this.repository.findByUsername(body.getEmail());
 
         if(user.isEmpty()) {
             UserAdmin newUserAdmin = new UserAdmin();
-            newUserAdmin.setPassword(passwordEncoder.encode(body.password()));
-            newUserAdmin.setUsername(body.username());
-            newUserAdmin.setName(body.name());
+            newUserAdmin.setPassword(passwordEncoder.encode(body.getPassword()));
+            newUserAdmin.setUsername(body.getEmail()); // Email como username
+            newUserAdmin.setName(body.getName()); // Nome como name
+            newUserAdmin.setCpf(body.getCpf());
+            newUserAdmin.setGrupo(body.getGrupo());
+            newUserAdmin.setActive(body.isActive());
+            newUserAdmin.setRole("ROLE_USER");
             this.repository.save(newUserAdmin);
 
             String token = this.tokenService.generateToken(newUserAdmin);
@@ -55,6 +60,11 @@ public class UserAdminController {
         return ResponseEntity.badRequest().build();
     }
 
+    @GetMapping("/users")
+    public ResponseEntity<List<UserAdmin>> listUsers() {
+        List<UserAdmin> users = repository.findAll();
+        return ResponseEntity.ok(users);
+    }
 
     @PostMapping("/validateToken")
     public ResponseEntity validateToken(HttpServletRequest request) {

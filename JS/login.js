@@ -16,10 +16,15 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         },
         body: JSON.stringify(loginData)
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Login falhou');
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.token) {
-            // Armazena o token no localStorage ou em cookies
+            // Armazena o token no localStorage
             localStorage.setItem('token', data.token);
             window.location.href = '../html/TelaPrincipal.html';
         } else {
@@ -28,5 +33,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     })
     .catch(error => {
         console.error('Erro ao fazer login:', error);
+        alert('Login falhou: ' + error.message);
     });
 });

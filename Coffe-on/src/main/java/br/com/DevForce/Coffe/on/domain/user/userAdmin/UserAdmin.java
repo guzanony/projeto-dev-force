@@ -14,7 +14,36 @@ public class UserAdmin {
     private String name;
     private String username;
     private String password;
+    private String role;
     private Long clienteId;
+    private String cpf;
+    private String grupo;
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public void setPassword(String password) {
         this.password = password;
@@ -50,6 +79,14 @@ public class UserAdmin {
 
     public Long getClienteId() {
         return clienteId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setClienteId(Long clienteId) {

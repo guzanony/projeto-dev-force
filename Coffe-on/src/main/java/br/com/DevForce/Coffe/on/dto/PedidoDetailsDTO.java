@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record PedidoDTO(
+public record PedidoDetailsDTO(
         Long id,
         Long clienteId,
-        List<ProductQuantidadeDTO> produtos,
+        List<ProductDTO> produtos,
         EnderecoEntregaDTO enderecoEntrega,
         BigDecimal valorFrete,
         String formaPagamento,

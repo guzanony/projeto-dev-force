@@ -4,9 +4,11 @@ import br.com.DevForce.Coffe.on.domain.Product.Product;
 import br.com.DevForce.Coffe.on.domain.cliente.Cliente;
 import br.com.DevForce.Coffe.on.domain.cliente.EnderecoEntrega;
 
+import br.com.DevForce.Coffe.on.dto.ProductDTO;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,7 +22,6 @@ public class Pedido {
     @JoinColumn(name = "cliente_id", nullable = false)
     @JsonManagedReference
     private Cliente cliente;
-
     @ManyToMany
     @JoinTable(
             name = "pedido_produtos",
@@ -29,17 +30,36 @@ public class Pedido {
     )
     @JsonManagedReference
     private List<Product> produtos;
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_entrega_id", nullable = false)
     private EnderecoEntrega enderecoEntrega;
-
     private BigDecimal valorFrete;
-
     private String formaPagamento;
     private String status;
-
     private Long numeroPedido;
+    private LocalDateTime dataCriacao;
+    private BigDecimal valorTotal;
+
+    @PrePersist
+    protected void onCreate() {
+        this.dataCriacao = LocalDateTime.now();
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
 
     public Long getId() {
         return id;

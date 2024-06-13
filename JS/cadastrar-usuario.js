@@ -5,7 +5,7 @@ const ipassword = document.querySelector(".password");
 const icpf = document.querySelector(".cpf");
 const igrupo = document.querySelector(".grupo");
 
-// Função para validar CPF
+// Função para validar CPF (se necessário)
 function validarCPF(cpf) {
   cpf = cpf.replace(/[^\d]+/g, '');
   if (cpf.length !== 11) {
@@ -46,44 +46,29 @@ function validarCPF(cpf) {
   }
 }
 
-// Função para carregar os dados do usuário para edição
-function loadUserData(userId) {
-  fetch('http://localhost:8080/registerUsers/' + userId)
-    .then(response => response.json())
-    .then(user => {
-      iusername.value = user.username;
-      iemail.value = user.email;
-      ipassword.value = user.password;
-      icpf.value = user.cpf;
-      igrupo.value = user.grupo;
-    })
-    .catch(error => console.error('Erro ao buscar dados do usuário:', error));
-}
-
-// Função para cadastrar ou atualizar usuário
+// Função para cadastrar usuário
 function cadastrar() {
-  if (!validarCPF(icpf.value)) {
-    alert("CPF inválido.");
-    return;
-  }
+  const username = iusername.value;
+  const email = iemail.value;
+  const password = ipassword.value;
+  const cpf = icpf.value;
+  const grupo = igrupo.value;
 
-  const userId = new URLSearchParams(window.location.search).get('userId');
-  const method = userId ? 'PUT' : 'POST';
-    const apiUrl = `http://localhost:8080/registerUsers${userId ? `/${userId}` : ''}`;
+  const registerData = {
+    username: username,
+    email: email,
+    password: password,
+    cpf: cpf,
+    grupo: grupo,
+  };
 
-  fetch(apiUrl, {
+  fetch('http://localhost:8080/auth/register', {
+    method: 'POST',
     headers: {
       "Accept": "application/json",
       "Content-Type": "application/json"
     },
-    method: method,
-    body: JSON.stringify({
-      username: iusername.value,
-      email: iemail.value,
-      password: ipassword.value,
-      cpf: icpf.value,
-      grupo: igrupo.value
-    })
+    body: JSON.stringify(registerData)
   })
   .then(response => {
     if (response.ok) {
@@ -97,7 +82,8 @@ function cadastrar() {
     alert("Usuário cadastrado com sucesso!");
   })
   .catch(error => {
-    console.error(error);
+    console.error('Erro ao cadastrar usuário:', error);
+    alert('Erro ao cadastrar usuário: ' + error.message);
   });
 }
 
@@ -115,10 +101,4 @@ formulario.addEventListener("submit", function(event) {
   event.preventDefault();
   cadastrar();
   limpar();
-});
-
-// Carrega os dados do usuário se estiver em modo de edição
-window.addEventListener('load', function () {
-  const userId = new URLSearchParams(window.location.search).get('userId');
-  if (userId) loadUserData(userId);
 });

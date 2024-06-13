@@ -56,7 +56,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/auth/{clienteId}/enderecos").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/{clienteId}/enderecos").permitAll()
                         .requestMatchers(HttpMethod.POST,"/pedidos").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/pedidos/{id}").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/pedidos/cliente/{clienteId}").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/auth/users").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/pedidos/{pedidoId}/detalhes").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

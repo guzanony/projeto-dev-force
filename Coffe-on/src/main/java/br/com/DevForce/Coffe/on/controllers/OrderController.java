@@ -8,12 +8,11 @@ import br.com.DevForce.Coffe.on.domain.cliente.EnderecoEntrega;
 import br.com.DevForce.Coffe.on.domain.cliente.EnderecoEntregaRepository;
 import br.com.DevForce.Coffe.on.domain.pedido.Pedido;
 import br.com.DevForce.Coffe.on.domain.pedido.PedidoRepository;
-import br.com.DevForce.Coffe.on.dto.EnderecoEntregaDTO;
-import br.com.DevForce.Coffe.on.dto.PedidoDTO;
+import br.com.DevForce.Coffe.on.dto.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -43,9 +42,12 @@ public class OrderController {
         pedido.setCliente(cliente);
 
         List<Product> produtos = pedidoDTO.produtos().stream()
-                .map(produtoId -> productsRepository.findById(produtoId)
-                        .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + produtoId)))
-                .collect(Collectors.toList());
+                .map(productQuantidadeDTO -> {
+                    Product produto = productsRepository.findById(productQuantidadeDTO.produtoId())
+                            .orElseThrow(() -> new RuntimeException("Produto não encontrado: " + productQuantidadeDTO.produtoId()));
+                    produto.setQuantidade(productQuantidadeDTO.quantidade());
+                    return produto;
+                }).collect(Collectors.toList());
         pedido.setProdutos(produtos);
 
         EnderecoEntrega enderecoEntrega = new EnderecoEntrega();
@@ -67,12 +69,18 @@ public class OrderController {
         Long maxNumeroPedido = pedidoRepository.findMaxNumeroPedido();
         pedido.setNumeroPedido(maxNumeroPedido != null ? maxNumeroPedido + 1 : 1L);
 
+        BigDecimal valorTotal = produtos.stream()
+                .map(produto -> produto.getPreco().multiply(BigDecimal.valueOf(produto.getQuantidade())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        pedido.setValorTotal(valorTotal);
+
         Pedido savedPedido = pedidoRepository.save(pedido);
 
         PedidoDTO responseDTO = new PedidoDTO(
                 savedPedido.getId(),
                 savedPedido.getCliente().getId(),
-                savedPedido.getProdutos().stream().map(Product::getId).collect(Collectors.toList()),
+                savedPedido.getProdutos().stream().map(produto -> new ProductQuantidadeDTO(produto.getId(), produto.getQuantidade())).collect(Collectors.toList()),
                 new EnderecoEntregaDTO(
                         savedPedido.getEnderecoEntrega().getCep(),
                         savedPedido.getEnderecoEntrega().getLogradouro(),
@@ -85,12 +93,13 @@ public class OrderController {
                 savedPedido.getValorFrete(),
                 savedPedido.getFormaPagamento(),
                 savedPedido.getStatus(),
-                savedPedido.getNumeroPedido()
+                savedPedido.getNumeroPedido(),
+                savedPedido.getDataCriacao(),
+                savedPedido.getValorTotal()
         );
 
         return ResponseEntity.ok(responseDTO);
     }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<PedidoDTO> getPedido(@PathVariable Long id) {
@@ -100,7 +109,7 @@ public class OrderController {
             return ResponseEntity.ok(new PedidoDTO(
                     p.getId(),
                     p.getCliente().getId(),
-                    p.getProdutos().stream().map(Product::getId).collect(Collectors.toList()),
+                    p.getProdutos().stream().map(produto -> new ProductQuantidadeDTO(produto.getId(), produto.getQuantidade())).collect(Collectors.toList()),
                     new EnderecoEntregaDTO(
                             p.getEnderecoEntrega().getCep(),
                             p.getEnderecoEntrega().getLogradouro(),
@@ -113,10 +122,72 @@ public class OrderController {
                     p.getValorFrete(),
                     p.getFormaPagamento(),
                     p.getStatus(),
-                    p.getNumeroPedido()
+                    p.getNumeroPedido(),
+                    p.getDataCriacao(),
+                    p.getValorTotal()
             ));
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/cliente/{clienteId}")
+    public ResponseEntity<List<PedidoDTO>> getOrdersByClienteId(@PathVariable Long clienteId) {
+        List<Pedido> pedidos = pedidoRepository.findByClienteId(clienteId);
+        List<PedidoDTO> pedidoDTOs = pedidos.stream().map(pedido -> new PedidoDTO(
+                pedido.getId(),
+                pedido.getCliente().getId(),
+                pedido.getProdutos().stream().map(produto -> new ProductQuantidadeDTO(produto.getId(), produto.getQuantidade())).collect(Collectors.toList()),
+                new EnderecoEntregaDTO(
+                        pedido.getEnderecoEntrega().getCep(),
+                        pedido.getEnderecoEntrega().getLogradouro(),
+                        pedido.getEnderecoEntrega().getNumero(),
+                        pedido.getEnderecoEntrega().getComplemento(),
+                        pedido.getEnderecoEntrega().getBairro(),
+                        pedido.getEnderecoEntrega().getCidade(),
+                        pedido.getEnderecoEntrega().getUf()
+                ),
+                pedido.getValorFrete(),
+                pedido.getFormaPagamento(),
+                pedido.getStatus(),
+                pedido.getNumeroPedido(),
+                pedido.getDataCriacao(),
+                pedido.getValorTotal()
+        )).collect(Collectors.toList());
+
+        return ResponseEntity.ok(pedidoDTOs);
+    }
+
+    @GetMapping("/{pedidoId}/detalhes")
+    public ResponseEntity<PedidoDetailsDTO> getPedidoDetalhes(@PathVariable Long pedidoId) {
+        Pedido pedido = pedidoRepository.findById(pedidoId)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        List<ProductDTO> productDTOs = pedido.getProdutos().stream()
+                .map(product -> new ProductDTO(product.getId(), product.getNome(), product.getPreco(), product.getQuantidade()))
+                .collect(Collectors.toList());
+
+        PedidoDetailsDTO pedidoDetailsDTO = new PedidoDetailsDTO(
+                pedido.getId(),
+                pedido.getCliente().getId(),
+                productDTOs,
+                new EnderecoEntregaDTO(
+                        pedido.getEnderecoEntrega().getCep(),
+                        pedido.getEnderecoEntrega().getLogradouro(),
+                        pedido.getEnderecoEntrega().getNumero(),
+                        pedido.getEnderecoEntrega().getComplemento(),
+                        pedido.getEnderecoEntrega().getBairro(),
+                        pedido.getEnderecoEntrega().getCidade(),
+                        pedido.getEnderecoEntrega().getUf()
+                ),
+                pedido.getValorFrete(),
+                pedido.getFormaPagamento(),
+                pedido.getStatus(),
+                pedido.getNumeroPedido(),
+                pedido.getDataCriacao(),
+                pedido.getValorTotal()
+        );
+
+        return ResponseEntity.ok(pedidoDetailsDTO);
     }
 }
 
