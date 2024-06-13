@@ -31,40 +31,73 @@ public class UserAdminController {
     }
     @PostMapping("/login")
     public ResponseEntity loginUserAdmin(@RequestBody LoginRequestDTO body) {
-        UserAdmin userAdmin = this.repository.findByUsername(body.username()).orElseThrow(()-> new RuntimeException("User not found"));
-        if(passwordEncoder.matches(body.password(), userAdmin.getPassword())) {
-            String token = this.tokenService.generateToken(userAdmin);
-            return ResponseEntity.ok(new ResponseDTO(userAdmin.getUsername(), userAdmin.getName(), userAdmin.getClienteId(), token)); //O que meu front end espera
+        UserAdmin userAdmin = this.repository.findByUsername(body.username()).orElseThrow(() -> new RuntimeException("User not found"));
+        if (passwordEncoder.matches(body.password(), userAdmin.getPassword())) {
+            return ResponseEntity.ok(new ResponseDTO(userAdmin.getUsername(), userAdmin.getName(), userAdmin.getRole(), userAdmin.getClienteId()));
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterRequestDTO body){
+    public ResponseEntity register(@RequestBody RegisterRequestDTO body) {
         Optional<UserAdmin> user = this.repository.findByUsername(body.getEmail());
 
-        if(user.isEmpty()) {
+        if (user.isEmpty()) {
             UserAdmin newUserAdmin = new UserAdmin();
             newUserAdmin.setPassword(passwordEncoder.encode(body.getPassword()));
-            newUserAdmin.setUsername(body.getEmail()); // Email como username
-            newUserAdmin.setName(body.getName()); // Nome como name
+            newUserAdmin.setUsername(body.getEmail());
+            newUserAdmin.setName(body.getName());
             newUserAdmin.setCpf(body.getCpf());
-            newUserAdmin.setGrupo(body.getGrupo());
             newUserAdmin.setActive(body.isActive());
-            newUserAdmin.setRole("ROLE_USER");
-            this.repository.save(newUserAdmin);
+            if ("admin".equals(body.getGrupo())) {
+                newUserAdmin.setRole("ROLE_ADMIN");
+            } else {
+                newUserAdmin.setRole("ROLE_ESTOQUISTA");
+            }            this.repository.save(newUserAdmin);
 
             String token = this.tokenService.generateToken(newUserAdmin);
-            return ResponseEntity.ok(new ResponseDTO(newUserAdmin.getName(), newUserAdmin.getUsername(), newUserAdmin.getClienteId(), token));
+            return ResponseEntity.ok(new ResponseDTO(newUserAdmin.getUsername(), newUserAdmin.getName(), newUserAdmin.getRole(), newUserAdmin.getClienteId()));
         }
         return ResponseEntity.badRequest().build();
     }
+
+    @GetMapping("/users/admin")
+    public ResponseEntity<List<UserAdmin>> listAdmins() {
+        List<UserAdmin> admins = repository.findByRole("ROLE_ADMIN");
+        return ResponseEntity.ok(admins);
+    }
+
+    @GetMapping("/users/estoquista")
+    public ResponseEntity<List<UserAdmin>> listEstoquistas() {
+        List<UserAdmin> estoquistas = repository.findByRole("ROLE_ESTOQUISTA");
+        return ResponseEntity.ok(estoquistas);
+    }
+
 
     @GetMapping("/users")
     public ResponseEntity<List<UserAdmin>> listUsers() {
         List<UserAdmin> users = repository.findAll();
         return ResponseEntity.ok(users);
     }
+
+    @GetMapping("/user")
+    public ResponseEntity<UserAdmin> getUser(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            String username = tokenService.validateToken(token);
+            if (username != null) {
+                UserAdmin userAdmin = repository.findByUsername(username)
+                        .orElseThrow(() -> new RuntimeException("User not found"));
+                return ResponseEntity.ok(userAdmin);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+
+
+
 
     @PostMapping("/validateToken")
     public ResponseEntity validateToken(HttpServletRequest request) {

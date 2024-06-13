@@ -59,6 +59,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/pedidos/cliente/{clienteId}").permitAll()
                         .requestMatchers(HttpMethod.GET,"/auth/users").permitAll()
                         .requestMatchers(HttpMethod.GET,"/pedidos/{pedidoId}/detalhes").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/auth/users/admin").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/auth/users/estoquista").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/auth/users").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/auth/user").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/pedidos/all").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/products/{id}").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/pedidos/{id}/status").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

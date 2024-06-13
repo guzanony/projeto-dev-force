@@ -189,5 +189,64 @@ public class OrderController {
 
         return ResponseEntity.ok(pedidoDetailsDTO);
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PedidoDTO>> getAllOrders() {
+        List<Pedido> pedidos = pedidoRepository.findAllByOrderByDataCriacaoDesc();
+        List<PedidoDTO> pedidoDTOs = pedidos.stream().map(pedido -> new PedidoDTO(
+                pedido.getId(),
+                pedido.getCliente().getId(),
+                pedido.getProdutos().stream().map(produto -> new ProductQuantidadeDTO(produto.getId(), produto.getQuantidade())).collect(Collectors.toList()),
+                new EnderecoEntregaDTO(
+                        pedido.getEnderecoEntrega().getCep(),
+                        pedido.getEnderecoEntrega().getLogradouro(),
+                        pedido.getEnderecoEntrega().getNumero(),
+                        pedido.getEnderecoEntrega().getComplemento(),
+                        pedido.getEnderecoEntrega().getBairro(),
+                        pedido.getEnderecoEntrega().getCidade(),
+                        pedido.getEnderecoEntrega().getUf()
+                ),
+                pedido.getValorFrete(),
+                pedido.getFormaPagamento(),
+                pedido.getStatus(),
+                pedido.getNumeroPedido(),
+                pedido.getDataCriacao(),
+                pedido.getValorTotal()
+        )).collect(Collectors.toList());
+
+        return ResponseEntity.ok(pedidoDTOs);
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<PedidoDTO> updateStatus(@PathVariable Long id, @RequestBody String status) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        pedido.setStatus(status);
+        Pedido updatedPedido = pedidoRepository.save(pedido);
+
+        PedidoDTO pedidoDTO = new PedidoDTO(
+                updatedPedido.getId(),
+                updatedPedido.getCliente().getId(),
+                updatedPedido.getProdutos().stream().map(produto -> new ProductQuantidadeDTO(produto.getId(), produto.getQuantidade())).collect(Collectors.toList()),
+                new EnderecoEntregaDTO(
+                        updatedPedido.getEnderecoEntrega().getCep(),
+                        updatedPedido.getEnderecoEntrega().getLogradouro(),
+                        updatedPedido.getEnderecoEntrega().getNumero(),
+                        updatedPedido.getEnderecoEntrega().getComplemento(),
+                        updatedPedido.getEnderecoEntrega().getBairro(),
+                        updatedPedido.getEnderecoEntrega().getCidade(),
+                        updatedPedido.getEnderecoEntrega().getUf()
+                ),
+                updatedPedido.getValorFrete(),
+                updatedPedido.getFormaPagamento(),
+                updatedPedido.getStatus(),
+                updatedPedido.getNumeroPedido(),
+                updatedPedido.getDataCriacao(),
+                updatedPedido.getValorTotal()
+        );
+
+        return ResponseEntity.ok(pedidoDTO);
+    }
+
 }
 

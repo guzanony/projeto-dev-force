@@ -23,13 +23,12 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         return response.json();
     })
     .then(data => {
-        if (data.token) {
-            // Armazena o token no localStorage
-            localStorage.setItem('token', data.token);
-            window.location.href = '../html/TelaPrincipal.html';
-        } else {
-            alert('Login falhou');
-        }
+        // Armazena os dados do usuário no localStorage
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('name', data.name);
+        localStorage.setItem('role', data.role);
+        console.log('Dados armazenados no localStorage:', data);
+        window.location.href = '../html/TelaPrincipal.html';
     })
     .catch(error => {
         console.error('Erro ao fazer login:', error);

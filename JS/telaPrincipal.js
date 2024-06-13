@@ -1,25 +1,43 @@
-document.addEventListener('DOMContentLoaded', function() {
-    var token = localStorage.getItem('token');
-    if (!token) {
-        window.location.href = 'login.html'; // Redireciona para a página de login se o token não existir
-    } else {
-        fetch('http://localhost:8080/validateToken', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                document.getElementById('content').innerText = 'Token validado com sucesso!';
-            } else {
-                localStorage.removeItem('token'); // Remove o token inválido
-                window.location.href = 'login.html'; // Redireciona para a página de login
-            }
-        })
-        .catch(error => {
-            console.error('Erro ao validar o token:', error);
-        });
+document.addEventListener("DOMContentLoaded", function() {
+    const role = localStorage.getItem('role');
+    console.log('Role recuperada do localStorage:', role);
+
+    if (!role) {
+        alert('Role ausente ou inválida');
+        window.location.href = '../html/login.html';
+        return;
+    }
+
+    const main = document.querySelector(".main");
+
+    if (role === 'ROLE_ADMIN') {
+        main.innerHTML += `
+            <div class="card shadow p-5" style="width: 18rem; height: 22rem">
+                <img src="../img/SeacrhProduct.svg" class="card-img-top" alt="usersimg">
+                <div class="card-body mt-5">
+                    <a href="../html/TabelaUsuarios.html" class="btn btn-outline-success col-12">Lista de Usuarios</a>
+                </div>
+            </div>
+        `;
+    }
+
+    main.innerHTML += `
+        <div class="card shadow p-5" style="width: 18rem; height: 22rem">
+            <img src="../img/SeacrhProduct.svg" class="card-img-top" alt="productimg">
+            <div class="card-body mt-5">
+                <a href="../html/tela-produtos.html" class="btn btn-outline-success col-12">Lista de Produtos</a>
+            </div>
+        </div>
+    `;
+
+    if (role === 'ROLE_ESTOQUISTA') {
+        main.innerHTML += `
+            <div class="card shadow p-5" style="width: 18rem; height: 22rem">
+                <img src="../img/SeacrhProduct.svg" class="card-img-top" alt="ordersimg">
+                <div class="card-body mt-5">
+                    <a href="../html/telaPedidos.html" class="btn btn-outline-success col-12">Lista de Pedidos</a>
+                </div>
+            </div>
+        `;
     }
 });

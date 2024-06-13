@@ -41,7 +41,7 @@ public class ClienteController {
         Cliente cliente = this.repository.findByEmail(body.email()).orElseThrow(()-> new RuntimeException("User not found"));
         if(passwordEncoder.matches(body.password(), cliente.getPassword())) {
             String token = this.tokenService.generateToken(cliente);
-            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getNomeCompleto(), cliente.getId(), token));
+            return ResponseEntity.ok(new ResponseDTO(cliente.getEmail(), cliente.getNomeCompleto(), cliente.getBairroFaturamento(), cliente.getId()));
         }
         return ResponseEntity.badRequest().build();
     }
@@ -94,7 +94,7 @@ public class ClienteController {
         repository.save(newCliente);
 
         String token = tokenService.generateToken(newCliente);
-        return ResponseEntity.ok(new ResponseDTO(newCliente.getEmail(), newCliente.getNomeCompleto(), newCliente.getId(), token));
+        return ResponseEntity.ok(new ResponseDTO(newCliente.getEmail(), newCliente.getNomeCompleto(), newCliente.getBairroFaturamento(), newCliente.getId()));
     }
 
 

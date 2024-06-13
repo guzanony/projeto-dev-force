@@ -48,16 +48,16 @@ function validarCPF(cpf) {
 
 // Função para cadastrar usuário
 function cadastrar() {
-  const username = iusername.value;
   const email = iemail.value;
   const password = ipassword.value;
+  const name = iusername.value;
   const cpf = icpf.value;
   const grupo = igrupo.value;
 
   const registerData = {
-    username: username,
     email: email,
     password: password,
+    name: name,
     cpf: cpf,
     grupo: grupo,
   };
@@ -87,7 +87,6 @@ function cadastrar() {
   });
 }
 
-// Função para limpar o formulário
 function limpar() {
   iusername.value = "";
   iemail.value = "";
@@ -96,7 +95,6 @@ function limpar() {
   igrupo.value = "";
 }
 
-// Evento para prevenir o envio padrão do formulário e chamar a função de cadastro
 formulario.addEventListener("submit", function(event) {
   event.preventDefault();
   cadastrar();
