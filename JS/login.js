@@ -16,17 +16,21 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         },
         body: JSON.stringify(loginData)
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.token) {
-            // Armazena o token no localStorage ou em cookies
-            localStorage.setItem('token', data.token);
-            window.location.href = '../html/TelaPrincipal.html';
-        } else {
-            alert('Login falhou');
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Login falhou');
         }
+        return response.json();
+    })
+    .then(data => {
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('name', data.name);
+        localStorage.setItem('role', data.role);
+        console.log('Dados armazenados no localStorage:', data);
+        window.location.href = '../html/TelaPrincipal.html';
     })
     .catch(error => {
         console.error('Erro ao fazer login:', error);
+        alert('Login falhou: ' + error.message);
     });
 });

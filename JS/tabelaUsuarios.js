@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const apiUrlGetUsers = 'http://localhost:8080/registerUsers';
-    const apiUrlActive = 'http://localhost:8080/registerUsers/{id}/activate';
-    const apiUrlDeactive = 'http://localhost:8080/registerUsers/{id}/deactivate';
+    const apiUrlGetUsers = 'http://localhost:8080/auth/users';
+    const apiUrlActive = 'http://localhost:8080/auth/registerUsers/{id}/activate';
+    const apiUrlDeactive = 'http://localhost:8080/auth/registerUsers/{id}/deactivate';
 
-    // Função para carregar usuários
     function loadUsers() {
         fetch(apiUrlGetUsers)
             .then(response => {
@@ -23,10 +22,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     let cellGrupo = row.insertCell();
                     let cellActions = row.insertCell();
 
-                    cellUsername.textContent = user.username;
-                    cellEmail.textContent = user.email;
-                    cellStatus.textContent = user.active ? "ATIVO" : "INATIVO";
-                    cellGrupo.textContent = user.grupo;
+                    cellUsername.textContent = user.name;
+                    cellEmail.textContent = user.username;
+                    cellStatus.textContent = user.active ? "ATIVO" : 'INATIVO'
+                    cellGrupo.textContent = user.role.replace('ROLE_', '');
 
                     let editBtn = document.createElement('button');
                     editBtn.textContent = 'Editar';
@@ -48,34 +47,33 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    // Função para alternar o status do usuário
-function toggleUserStatus(userId, isActive) {
-    const apiUrl = isActive ? apiUrlDeactive.replace('{id}', userId) : apiUrlActive.replace('{id}', userId);
+    function toggleUserStatus(userId, isActive) {
+        const apiUrl = isActive ? apiUrlDeactive.replace('{id}', userId) : apiUrlActive.replace('{id}', userId);
 
-    fetch(apiUrl, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        if (response.status === 204 || response.bodyUsed === false) {
-            return {}; // Retorna um objeto vazio se não houver conteúdo para evitar erros de JSON
-        }
-        return response.json(); // Processa a resposta como JSON apenas se houver conteúdo
-    })
-    .then(data => {
-        console.log('Status do usuário alterado com sucesso:', data);
-        alert('Status do usuário alterado com sucesso!');
-        window.location.reload(); // Recarrega a página para atualizar os dados
-    })
-    .catch(error => {
-        console.error('Erro ao alterar status do usuário:', error);
-    });
-}
+        fetch(apiUrl, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            if (response.status === 204 || response.bodyUsed === false) {
+                return {};
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Status do usuário alterado com sucesso:', data);
+            alert('Status do usuário alterado com sucesso!');
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Erro ao alterar status do usuário:', error);
+        });
+    }
 
-    loadUsers(); // Carrega usuários ao carregar a página
+    loadUsers();
 });

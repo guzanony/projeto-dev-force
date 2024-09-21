@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var token = localStorage.getItem('token');
     if (!token) {
-        window.location.href = 'page-login-cliente.html'; // Redireciona para a página de login se o token não existir
+        window.location.href = 'page-login-cliente.html';
     } else {
         fetch('http://localhost:8080/auth/validateTokenCliente', {
             method: 'POST',
@@ -14,8 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 document.getElementById('content').innerText = 'Token validado com sucesso!';
             } else {
-                localStorage.removeItem('token'); // Remove o token inválido
-                window.location.href = 'page-login-cliente.html'; // Redireciona para a página de login
+                localStorage.removeItem('token');
+                window.location.href = 'page-login-cliente.html';
             }
         })
         .catch(error => {

@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('nome').value = data.nome;
         document.getElementById('email').value = data.email;
         document.getElementById('cpf').value = data.cpf;
-        document.getElementById('data-nascimento').value = data.dataNascimento.split('T')[0]; // Ajuste conforme o formato recebido
+        document.getElementById('data-nascimento').value = data.dataNascimento.split('T')[0];
         document.getElementById('genero').value = data.genero;
 
-        document.getElementById('logradouro-faturamento').value = data.endereco.logradouro; // Ajuste conforme o nome real do campo em sua API
+        document.getElementById('logradouro-faturamento').value = data.endereco.logradouro;
         document.getElementById('numero-faturamento').value = data.endereco.numero;
         document.getElementById('complemento-faturamento').value = data.endereco.complemento;
         document.getElementById('bairro-faturamento').value = data.endereco.bairro;
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   function validarCPF(cpf) { 
-    cpf = cpf.replace(/[^\d]+/g, ""); // Remove tudo o que não é dígito
+    cpf = cpf.replace(/[^\d]+/g, "");
     if (cpf.length !== 11) {
       return false;
     }
@@ -136,12 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
     divEnderecosEntrega.appendChild(novoEndereco);
     contadorEnderecos++;
 
-    // Adiciona evento de remover para o botão recém-criado
     novoEndereco
       .querySelector(".removerEnderecoEntrega")
       .addEventListener("click", function () {
         novoEndereco.remove();
-        // Se o endereço removido estava selecionado, seleciona o primeiro endereço restante
         if (
           novoEndereco.querySelector('input[type="radio"]').checked &&
           divEnderecosEntrega.children.length > 0
@@ -150,12 +148,10 @@ document.addEventListener("DOMContentLoaded", function () {
             'input[type="radio"]'
           ).checked = true;
         }
-        // Tira o contador de endereços se um endereço é removido
         contadorEnderecos--;
       });
   });
 
-  // Submissão do formulário
   formulario.addEventListener("submit", function (event) {
     event.preventDefault();
     const form = new FormData(formulario);

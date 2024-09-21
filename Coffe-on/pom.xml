@@ -8,11 +8,11 @@
 		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.DevForce</groupId>
-	<artifactId>Coffe-on</artifactId>
+	<groupId>br.com.KiloByte</groupId>
+	<artifactId>Kilo-byte</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Coffe-on</name>
-	<description>Projeto dev force</description>
+	<name>Kilo-byte</name>
+	<description>Projeto kilo byte</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

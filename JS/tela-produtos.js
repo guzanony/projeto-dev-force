@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function() {
   const apiUrlActivateProduct = 'http://localhost:8080/products/{id}/activate';
   const apiUrlDeactivateProduct = 'http://localhost:8080/products/{id}/deactivade';
 
-  // Função para carregar produtos
   function loadProducts() {
       fetch(apiUrlGetProducts)
           .then(response => {
@@ -28,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       <td>${produto.nome}</td>
                       <td>${produto.quantidade}</td>
                       <td>${formatador.format(produto.preco)}</td>
-                      <td>${produto.status ? 'Ativo' : 'Inativo'}</td>
+                      <td>${produto.active ? 'Ativo' : 'Inativo'}</td>
                   `;
 
                   const tdAcao = document.createElement('td');
@@ -46,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
                   tdAcao.appendChild(editBtn);
 
                   let statusBtn = document.createElement('button');
-                  statusBtn.innerText = produto.status ? 'Desativar' : 'Ativar';
-                  statusBtn.className = produto.status ? 'btn btn-secondary' : 'btn btn-primary';
-                  statusBtn.addEventListener('click', () => toggleProductStatus(produto.id, produto.status));
+                  statusBtn.innerText = produto.active ? 'Desativar' : 'Ativar';
+                  statusBtn.className = produto.active ? 'btn btn-secondary' : 'btn btn-primary';
+                  statusBtn.addEventListener('click', () => toggleProductStatus(produto.id, produto.active));
                   tdAcao.appendChild(statusBtn);
 
                   tr.appendChild(tdAcao);
@@ -58,7 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
           .catch(error => console.error('Erro ao buscar produtos:', error));
   }
 
-  // Função para alternar o status do produto
   function toggleProductStatus(productId, isActive) {
       const apiUrl = isActive ? apiUrlDeactivateProduct.replace('{id}', productId) : apiUrlActivateProduct.replace('{id}', productId);
 
@@ -72,27 +70,25 @@ document.addEventListener('DOMContentLoaded', function() {
           if (!response.ok) {
               throw new Error(`HTTP error! status: ${response.status}`);
           }
-          return response.text(); // Processa a resposta como texto
+          return response.text();
       })
       .then(() => {
           console.log('Status do produto alterado com sucesso');
           alert('Status do produto alterado com sucesso!');
-          loadProducts(); // Recarrega os dados da tabela
+          loadProducts();
       })
       .catch(error => {
           console.error('Erro ao alterar status do produto:', error);
       });
   }
 
-  // Função para visualizar produto
   function viewProduct(productId) {
       window.location.href = `detalhe-produto-page-tela-produtos.html?productId=${productId}`;
   }
 
-  // Função para editar produto
   function editProduct(productId) {
-      window.location.href = `editar-produto.html?productId=${productId}`;
+      window.location.href = `form-produtos.html?productId=${productId}`;
   }
 
-  loadProducts(); // Carrega produtos ao carregar a página
+  loadProducts();
 });
