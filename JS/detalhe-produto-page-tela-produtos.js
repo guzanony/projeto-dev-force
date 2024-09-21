@@ -12,7 +12,6 @@ function loadProductDetails(productId) {
             return response.json();
         })
         .then(product => {
-            // Atualize o conteúdo da página com os detalhes do produto
             document.getElementById('product-title').textContent = product.nome;
         })
         .catch(e => {

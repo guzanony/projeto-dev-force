@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="#fff" />
+
+    <!-- Floating Product Registration Boxes -->
+    <!-- Left Floating Box -->
+    <rect x="50" y="100" width="120" height="60" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+    <rect x="70" y="120" width="80" height="10" fill="#000" />
+    <rect x="70" y="135" width="60" height="8" fill="#000" />
+
+    <!-- Center Floating Box with Plus Icon -->
+    <rect x="150" y="150" width="140" height="80" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+    <circle cx="220" cy="190" r="20" fill="#000" />
+    <rect x="217" y="180" width="6" height="20" fill="#fff"/>
+    <rect x="210" y="187" width="20" height="6" fill="#fff"/>
+
+    <!-- Right Floating Box -->
+    <rect x="330" y="200" width="120" height="60" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+    <rect x="350" y="220" width="80" height="10" fill="#000" />
+    <rect x="350" y="235" width="60" height="8" fill="#000" />
+
+    <!-- Person Figure -->
+    <!-- Head -->
+    <circle cx="380" cy="300" r="20" fill="#4d4d66" />
+
+    <!-- Body -->
+    <rect x="360" y="320" width="40" height="80" fill="#4d4d66" />
+
+    <!-- Arms -->
+    <rect x="340" y="320" width="15" height="60" fill="#4d4d66" />
+    <rect x="405" y="320" width="15" height="60" fill="#4d4d66" />
+
+    <!-- Paper in Hand -->
+    <rect x="410" y="350" width="60" height="40" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+    <rect x="420" y="360" width="40" height="8" fill="#d3d3d3" />
+    <rect x="420" y="375" width="30" height="6" fill="#d3d3d3" />
+
+    <!-- Legs -->
+    <rect x="365" y="400" width="12" height="30" fill="#4d4d66"/>
+    <rect x="383" y="400" width="12" height="30" fill="#4d4d66"/>
+
+    <!-- Plant Element (Bottom Right) -->
+    <path d="M 430 400 Q 440 390 450 420 T 460 440" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+    <path d="M 450 420 Q 455 410 470 440 T 475 445" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+</svg>

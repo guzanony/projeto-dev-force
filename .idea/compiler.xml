@@ -6,12 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Kilo-byte" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Coffe-on" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Coffe-on" options="-parameters" />
+      <module name="Kilo-byte" options="-parameters" />
     </option>
   </component>
 </project>

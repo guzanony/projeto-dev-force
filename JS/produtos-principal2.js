@@ -43,7 +43,6 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.removeItem("token");
           window.location.href = "page-login-cliente.html";
         }
-        //adicionar código para carregar os produtos ou outras informações
       })
       .catch((error) => {
         console.error("Erro ao validar o token:", error);

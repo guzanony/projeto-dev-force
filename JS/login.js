@@ -23,7 +23,6 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         return response.json();
     })
     .then(data => {
-        // Armazena os dados do usuário no localStorage
         localStorage.setItem('username', data.username);
         localStorage.setItem('name', data.name);
         localStorage.setItem('role', data.role);
