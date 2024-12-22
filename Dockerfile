@@ -1,7 +1,7 @@
 # Usa a imagem do Maven para construir o projeto
 FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY . /app
+COPY Coffe-on /app
 RUN mvn clean package -DskipTests
 
 # Usa a imagem do Java 17 para rodar o JAR
