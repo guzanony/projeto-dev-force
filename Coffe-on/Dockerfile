@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . /app
 RUN mvn clean package -DskipTests
 
-# Usa a imagem do Java 21 para rodar o JAR
+# Usa a imagem do Java 17 para rodar o JAR
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/Kilo-byte-0.0.1-SNAPSHOT.jar app.jar
