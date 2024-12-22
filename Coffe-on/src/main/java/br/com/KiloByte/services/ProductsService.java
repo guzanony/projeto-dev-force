@@ -5,8 +5,11 @@ import br.com.KiloByte.domain.Product.ProductsRepository;
 import br.com.KiloByte.domain.Product.RequestProducts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import br.com.KiloByte.domain.Product.Image;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,9 +35,14 @@ public class ProductsService {
         newProduct.setDescricao(requestProducts.getDescricao());
         newProduct.setActive(true);
 
-        if (requestProducts.getImage() != null && !requestProducts.getImage().isEmpty()) {
-            byte[] imageBytes = requestProducts.getImage().getBytes();
-            newProduct.setImage(imageBytes);
+        if (requestProducts.getImages() != null && !requestProducts.getImages().isEmpty()) {
+            List<Image> images = new ArrayList<>();
+            for (MultipartFile imageFile : requestProducts.getImages()) {
+                byte[] imageBytes = imageFile.getBytes();
+                Image image = new Image(imageBytes, newProduct);
+                images.add(image);
+            }
+            newProduct.setImages(images);
         }
 
         return productsRepository.save(newProduct);

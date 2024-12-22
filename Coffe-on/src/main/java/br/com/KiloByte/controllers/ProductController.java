@@ -1,6 +1,7 @@
 package br.com.KiloByte.controllers;
 
 import br.com.KiloByte.domain.Product.Product;
+import br.com.KiloByte.domain.Product.ProductResponseDTO;
 import br.com.KiloByte.domain.Product.RequestProducts;
 import br.com.KiloByte.domain.Product.ProductsRepository;
 import br.com.KiloByte.services.ProductsService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,40 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
+    public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
+        List<Product> products = productsRepository.findAll();
+
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        List<ProductResponseDTO> productsDTO = products.stream().map(this::convertToDTO).toList();
+
+        return ResponseEntity.ok(productsDTO);
+    }
+
+    private ProductResponseDTO convertToDTO(Product product) {
+        ProductResponseDTO dto = new ProductResponseDTO();
+        dto.setId(product.getId());
+        dto.setNome(product.getNome());
+        dto.setAvaliacao(product.getAvaliacao());
+        dto.setQuantidade(product.getQuantidade());
+        dto.setPreco(product.getPreco());
+        dto.setDescricao(product.getDescricao());
+        dto.setActive(product.isActive());
+
+        if (product.getImages() != null && !product.getImages().isEmpty()) {
+            List<String> imagesBase64 = product.getImages().stream()
+                    .map(image -> Base64.getEncoder().encodeToString(image.getImageData()))
+                    .toList();
+            dto.setImages(imagesBase64);
+        }
+
+        return dto;
+    }
+
+
+
     @PostMapping
     public ResponseEntity<?> adicionarProduto(@ModelAttribute RequestProducts requestProducts) {
         try {
@@ -68,11 +104,21 @@ public class ProductController {
                     .ok()
                     .contentType(MediaType.IMAGE_JPEG)
                     .body(imageBytes);
+
+            if (product.getImages() != null && !product.getImages().isEmpty()) {
+                byte[] imageBytes = product.getImages().get(0).getImageData();
+
+                return ResponseEntity
+                        .ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .body(imageBytes);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @PatchMapping("/{id}/activate")
     public ResponseEntity<?> activeProduct(@PathVariable Long id) {
@@ -114,6 +160,7 @@ public class ProductController {
         // Se uma nova imagem for fornecida, processa e salva
         if (image != null && !image.isEmpty()) {
             // Implementar lógica para armazenar a imagem
+        if (image != null && !image.isEmpty()) {
         }
         Product updatedProduct = productsRepository.save(product);
         return ResponseEntity.ok(updatedProduct);
@@ -125,6 +172,15 @@ public class ProductController {
         Product product = productsRepository.findById(id)
                 .orElseThrow(() -> new ExpressionException("Produto não encontrado com o ID: " + id));
         return ResponseEntity.ok(product);
+    }
+
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Long id) {
+        Product product = productsRepository.findById(id)
+                .orElseThrow(() -> new ExpressionException("Produto não encontrado com o ID: " + id));
+
+        ProductResponseDTO productDTO = convertToDTO(product);
+
+        return ResponseEntity.ok(productDTO);
     }
 
 }

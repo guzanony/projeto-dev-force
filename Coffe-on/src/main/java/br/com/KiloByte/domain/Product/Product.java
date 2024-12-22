@@ -2,12 +2,14 @@ package br.com.KiloByte.domain.Product;
 
 import br.com.KiloByte.domain.pedido.Pedido;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,8 +31,9 @@ public class Product {
     private BigDecimal preco;
     private String descricao;
 
-    @Column(name = "image")
-    private byte[] image;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Image> images;
 
     @Column(name = "active", nullable = false)
     private boolean active = true;
@@ -54,20 +57,20 @@ public class Product {
         this.active = active;
     }
 
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 
     public Double getAvaliacao() {

@@ -3,6 +3,7 @@ package br.com.KiloByte.domain.Product;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class RequestProducts {
     private String nome;
@@ -11,26 +12,25 @@ public class RequestProducts {
     private BigDecimal preco;
     private String descricao;
     private Boolean active;
-    private MultipartFile image;
+    private List<MultipartFile> images;
 
-    public RequestProducts(String nome, Double avaliacao, Integer quantidade, BigDecimal preco, String descricao, Boolean active, MultipartFile image) {
+
+    public RequestProducts(String nome, Double avaliacao, Integer quantidade, BigDecimal preco, String descricao, Boolean active, List<MultipartFile> images) {
         this.nome = nome;
         this.avaliacao = avaliacao;
         this.quantidade = quantidade;
         this.preco = preco;
         this.descricao = descricao;
         this.active = active;
-        this.image = image;
+        this.images = images;
     }
 
-    public MultipartFile getImage() {
-        return image;
+    public List<MultipartFile> getImages() {
+        return images;
     }
-
-    public void setImage(MultipartFile image) {
-        this.image = image;
+    public void setImages(List<MultipartFile> images) {
+        this.images = images;
     }
-
     public String getNome() {
         return nome;
     }

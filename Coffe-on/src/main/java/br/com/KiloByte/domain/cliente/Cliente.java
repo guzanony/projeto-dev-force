@@ -4,6 +4,7 @@ import br.com.KiloByte.domain.pedido.Pedido;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nomeCompleto;
-    private Date dataNascimento;
+    private LocalDate dataNascimento;
     private String genero;
     private String cepFaturamento;
     private String logradouroFaturamento;
@@ -49,11 +50,11 @@ public class Cliente {
         this.nomeCompleto = nomeCompleto;
     }
 
-    public Date getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 

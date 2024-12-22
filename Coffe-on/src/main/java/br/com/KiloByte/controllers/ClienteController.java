@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -112,9 +113,8 @@ public class ClienteController {
     }
 
     @GetMapping("/cliente/me")
-    public ResponseEntity<RegisterClienteDTO> getMyInfo(Principal principal) {
-        String username = principal.getName();
-        Optional<Cliente> cliente = repository.findByEmail(username);
+    public ResponseEntity<RegisterClienteDTO> getMyInfo(@RequestParam String nomeCompleto) {
+        Optional<Cliente> cliente = repository.findByNomeCompleto(nomeCompleto);
         if (cliente.isPresent()) {
             Cliente c = cliente.get();
             List<EnderecoEntregaDTO> enderecosEntrega = c.getEnderecosEntrega().stream()
@@ -139,9 +139,9 @@ public class ClienteController {
                     c.getBairroFaturamento(),
                     c.getCidadeFaturamento(),
                     c.getUfFaturamento(),
-                    c.getPassword(),
                     c.getEmail(),
                     c.getCpf(),
+                    null,
                     enderecosEntrega
             );
 
@@ -150,6 +150,7 @@ public class ClienteController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @GetMapping("/{clienteId}/enderecos")
     public ResponseEntity<List<EnderecoEntregaDTO>> getClienteEnderecos(@PathVariable Long clienteId) {
@@ -197,4 +198,53 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @PutMapping("/cliente/me")
+    public ResponseEntity<?> updateMyInfo(@RequestParam String nomeCompleto, @RequestBody RegisterClienteDTO body) {
+        Optional<Cliente> optionalCliente = repository.findByNomeCompleto(nomeCompleto);
+
+        if (optionalCliente.isPresent()) {
+            Cliente cliente = optionalCliente.get();
+
+            cliente.setNomeCompleto(body.nomeCompleto());
+            cliente.setDataNascimento(body.dataNascimento());
+            cliente.setGenero(body.genero());
+            cliente.setCpf(body.cpf());
+            cliente.setCepFaturamento(body.cepFaturamento());
+            cliente.setLogradouroFaturamento(body.logradouroFaturamento());
+            cliente.setNumeroFaturamento(body.numeroFaturamento());
+            cliente.setComplementoFaturamento(body.complementoFaturamento());
+            cliente.setBairroFaturamento(body.bairroFaturamento());
+            cliente.setCidadeFaturamento(body.cidadeFaturamento());
+            cliente.setUfFaturamento(body.ufFaturamento());
+
+            if (body.enderecosEntrega() != null) {
+                List<EnderecoEntrega> enderecosEntrega = body.enderecosEntrega().stream().map(enderecoDTO -> {
+                    EnderecoEntrega endereco = new EnderecoEntrega();
+                    endereco.setCep(enderecoDTO.cep());
+                    endereco.setLogradouro(enderecoDTO.logradouro());
+                    endereco.setNumero(enderecoDTO.numero());
+                    endereco.setComplemento(enderecoDTO.complemento());
+                    endereco.setBairro(enderecoDTO.bairro());
+                    endereco.setCidade(enderecoDTO.cidade());
+                    endereco.setUf(enderecoDTO.uf());
+                    endereco.setCliente(cliente);
+                    return endereco;
+                }).collect(Collectors.toList());
+
+                cliente.setEnderecosEntrega(enderecosEntrega);
+            } else {
+                cliente.setEnderecosEntrega(new ArrayList<>());
+            }
+
+            repository.save(cliente);
+
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
+
+
+
 }

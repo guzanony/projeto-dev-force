@@ -1,11 +1,13 @@
 package br.com.KiloByte.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public record RegisterClienteDTO(
         String nomeCompleto,
-        Date dataNascimento,
+        LocalDate dataNascimento,
         String genero,
         String cepFaturamento,
         String logradouroFaturamento,

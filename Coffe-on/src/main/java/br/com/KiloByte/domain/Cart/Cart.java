@@ -1,11 +1,15 @@
 package br.com.KiloByte.domain.Cart;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "carts")
 public class Cart {
 
@@ -14,6 +18,7 @@ public class Cart {
     private Long id;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     @JoinColumn(name = "cart_id")
     private List<CartItem> items = new ArrayList<>();
 

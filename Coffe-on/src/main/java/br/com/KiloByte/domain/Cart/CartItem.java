@@ -2,9 +2,12 @@ package br.com.KiloByte.domain.Cart;
 
 import br.com.KiloByte.domain.Product.Product;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "cart_items")
 public class CartItem {
 
